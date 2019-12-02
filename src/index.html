@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Present</title>
+	<script src="node_modules/aframe/dist/aframe-master.js"></script>
+	<script src="src/main.js" type="module"></script>
+	<link rel="stylesheet" href="./style.css"></link>
+</head>
+<body>
+    <div class="menu-container">
+		<button id="hamburger">
+			<img src="./assets/menu.svg">
+		</button>
+		<div id="menu">
+			<button id="close-menu">X</button>
+			<ul>
+				<li><button id="capture-screen">Capture Screen</button></li>
+				<li><button id="show-screen">Show Screen</button></li>
+			</ul>
+		</div>
+    </div>
+    <a-scene>
+        <a-sky color="#191a47"></a-sky>
+        <a-plane color="#FFFFFF" position="0 0 0"></a-plane>
+    </a-scene>
+</body>
+</html>

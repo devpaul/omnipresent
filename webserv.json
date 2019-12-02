@@ -1,0 +1,13 @@
+{
+    "services": [
+        {
+            "type": "file",
+            "paths": {
+                "/src/*": "./dist",
+                "/aframe/*": "./node_modules/aframe",
+                "/node_modules/*": "./node_modules",
+                "*": "./src"
+            }
+        }
+    ]
+}
