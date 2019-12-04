@@ -1,7 +1,7 @@
 {
     "services": [
         {
-            "type": "file",
+            "name": "file",
             "paths": {
                 "/src/*": "./dist",
                 "/aframe/*": "./node_modules/aframe",

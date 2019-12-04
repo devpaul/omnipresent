@@ -2,19 +2,18 @@ export function checkScreenSharing() {
 	return !!navigator.mediaDevices.getDisplayMedia;
 }
 
-export const check = () => {
-	return Object.keys(check).every((key) => {
-		const value: any = (check as any)[key];
-		if (typeof value === 'function') {
-			return value();
-		}
-		return value;
-	})
-};
-Object.defineProperties(check, {
-	'screenSharing': {
-		get: checkScreenSharing
-	}
-});
+const checks: { [ key: string ]: boolean | (() => boolean) } = {
+	screenSharing: checkScreenSharing
+}
 
-export default check;
+export function has(name: keyof typeof checks) {
+	const check = checks[name];
+	return typeof check === 'function' ? check() : check;
+}
+
+export function report(): { [ key: string ]: boolean } {
+	return Object.keys(checks).reduce((result: { [ key: string ]: boolean }, key) => {
+		result[key] = has(key);
+		return result;
+	}, {});
+}
