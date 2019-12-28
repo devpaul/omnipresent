@@ -1,8 +1,8 @@
 import {join} from "path";
 import * as cpy from 'cpy';
 import {closeSync, openSync} from "fs";
-import {distDirectory} from "./constants";
 
+const distDirectory = join(process.cwd(), '_dist');
 const ghpages = require('gh-pages');
 
 async function createDist() {

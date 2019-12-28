@@ -48,5 +48,15 @@ Reveal.initialize({
 			src: 'node_modules/reveal.js/plugin/notes/notes.js',
 			async: true
 		}
+
 	]
 });
+
+Reveal.addEventListener('slidechanged', function (event) {
+	console.log('slide changed', event);
+	// TODO take screenshot
+	// TODO upload screenshot to server
+	// TODO set screen to use screenshot
+});
+
+// TODO add menu to connect to server

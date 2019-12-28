@@ -19,3 +19,8 @@ export function getScreenMedia() {
 		video: true
 	});
 }
+
+export function captureScreenshot(media: MediaStream) {
+	document.createElement('canvas');
+	// TODO capture a screenshot
+}
