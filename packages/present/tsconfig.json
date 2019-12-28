@@ -1,0 +1,21 @@
+{
+	"version": "3.7",
+	"compilerOptions": {
+		"target": "es6",
+		"baseUrl": ".",
+		"outDir": "./dist",
+		"downlevelIteration": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"strict": true,
+		"lib": [
+			"dom",
+			"es2015",
+			"es2017.object",
+			"esnext.asynciterable"
+		]
+	},
+	"include": [
+		"./src/**/*.ts"
+	]
+}

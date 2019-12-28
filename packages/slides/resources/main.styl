@@ -1,0 +1,108 @@
+@import variables
+
+.reveal {
+	.removeFormatting {
+		border: none !important;
+		background: none !important;
+		box-shadow: none !important
+		margin: 0;
+	}
+
+	.absolute-center {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		bottom: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: white;
+		align-content: center;
+		flex-direction: column;
+	}
+
+	.two-column {
+		display: flex;
+		justify-content: center;
+
+		> * {
+			flex: 1 1;
+		}
+
+		&.medium {
+			> * {
+				max-width: 500px;
+			}
+		}
+	}
+
+	ul {
+		.no-style {
+			list-style: none;
+			margin-left: -36px;
+		}
+
+		.twitter {
+			&:before {
+				image-li("../assets/images/twitter.png")
+			}
+		}
+
+		.github:before {
+			image-li("../assets/images/GitHub-Mark/PNG/GitHub-Mark-32px.png")
+		}
+	}
+
+	.slides > section {
+		&.full {
+			height: 100%
+			width: 100%
+		}
+
+		.background-image-container {
+			top: 0;
+			left: 0;
+			position: absolute;
+			opacity: 0.5;
+
+			img {
+				border: none;
+				margin: 0;
+			}
+		}
+
+
+		img {
+			&.strip {
+				background: none;
+				border: none;
+				box-shadow: none;
+			}
+
+			&.full {
+				max-width: 100%;
+				max-height: 100%;
+			}
+
+			&.medium {
+				min-height: 20vh;
+			}
+
+			&.gh-mark {
+				height: 49px;
+				margin: 0 10px 0 0;
+			}
+		}
+
+		.mosaic {
+			display: flex;
+			max-width: 100%;
+			flex-wrap: wrap;
+			justify-content: center;
+
+			> * {
+				margin: 10px;
+			}
+		}
+	}
+}

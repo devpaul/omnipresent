@@ -1,0 +1,15 @@
+{
+	"port": 8765,
+	"services": [
+		{
+			"name": "log",
+			"level": "debug"
+		},
+		{
+			"name": "file",
+			"paths": {
+				"*": "."
+			}
+		}
+	]
+}
