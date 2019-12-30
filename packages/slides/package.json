@@ -5,15 +5,19 @@
   "author": "Paul Shannon",
   "license": "MPL-2.0",
   "scripts": {
-    "build": "run-p build:css",
+    "build": "run-p build:css build:ts",
     "build:css": "stylus resources/main.styl -o resources/main.css",
+    "build:ts": "tsc",
     "clean": "shx rm -rf _dist && shx rm resources/*.css",
     "publish": "npm run build && ts-node ./support/scripts/publish",
-    "watch": "run-p watch:css",
-    "watch:css": "stylus -w resources/main.styl -o resources/main.css"
+    "watch": "run-p watch:css watch:ts",
+    "watch:css": "stylus -w resources/main.styl -o resources/main.css",
+    "watch:ts": "tsc -w"
   },
   "devDependencies": {
     "@types/cpy": "^5.1.0",
+    "@types/highlight.js": "^9.12.3",
+    "@types/reveal": "^3.3.33",
     "@types/stylus": "^0.48.30",
     "cpy": "^7.0.1",
     "gh-pages": "^1.2.0",
@@ -21,7 +25,7 @@
     "shx": "^0.3.2",
     "stylus": "^0.54.5",
     "ts-node": "^7.0.1",
-    "typescript": "^3.0.1"
+    "typescript": "^3.7.4"
   },
   "dependencies": {
     "reveal.js": "^3.7.0"

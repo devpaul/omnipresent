@@ -4,7 +4,9 @@
   "description": "Presentation client",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "tsc -w"
   },
   "author": "Paul Shannon",
   "license": "MPL-2.0"

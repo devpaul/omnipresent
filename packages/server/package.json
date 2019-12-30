@@ -11,7 +11,7 @@
   "author": "",
   "license": "MPL-2.0",
   "dependencies": {
-    "webserv": "^1.3.0-beta.1"
+    "webserv": "^1.3.0-beta.4"
   },
   "devDependencies": {
     "ngrok": "^3.2.5",

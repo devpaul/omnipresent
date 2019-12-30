@@ -35,15 +35,20 @@
 
 <body>
 
-<div class="menu">
-	<header>
-		<h1>Present Controls</h1>
-	</header>
-	<div>
-		<ul>
-			<li>Share Screen</li><!-- Share Screen / Stop Sharing -->
-			<li>Connect</li><!-- Connect to present / disconnect -->
-		</ul>
+<div class="menu-container">
+	<div class="menu">
+		<div class="close-container">
+			<button class="close buttonlink">X</button>
+		</div>
+		<header>
+			<h1>Present Controls</h1>
+		</header>
+		<div>
+			<ul>
+				<li><button class="share buttonlink">Share Screen</button></li><!-- Share Screen / Stop Sharing -->
+				<li>Connect</li><!-- Connect to present / disconnect -->
+			</ul>
+		</div>
 	</div>
 </div>
 
@@ -83,7 +88,8 @@
 
 <script src="node_modules/reveal.js/lib/js/head.min.js"></script>
 <script src="node_modules/reveal.js/js/reveal.js"></script>
-<script src="src/index.js"></script>
+<script type="module" src="dist/index.js"></script>
+<script type="module" src="dist/menu.js"></script>
 
 </body>
 </html>

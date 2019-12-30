@@ -1,3 +1,7 @@
+/// <reference types="reveal" />
+
+declare const hljs: typeof import('highlight.js');
+
 // Full list of configuration options available at:
 // https://github.com/hakimel/reveal.js#configuration
 Reveal.initialize({
@@ -48,8 +52,11 @@ Reveal.initialize({
 			src: 'node_modules/reveal.js/plugin/notes/notes.js',
 			async: true
 		}
-
 	]
+});
+
+Reveal.addEventListener('ready', function (event) {
+	// TODO open menu
 });
 
 Reveal.addEventListener('slidechanged', function (event) {
