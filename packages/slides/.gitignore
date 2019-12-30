@@ -1,0 +1,4 @@
+.idea
+_dist
+/node_modules
+resources/*.css

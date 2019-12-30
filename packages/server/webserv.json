@@ -1,0 +1,29 @@
+{
+	"services": [
+		{
+			"name": "log",
+			"level": "debug"
+		},
+		{
+			"name": "chat"
+		},
+		{
+			"name": "upload",
+			"path": "/upload/*",
+			"directory": "./uploads",
+			"createUploadDirectory": true
+		},
+		{
+			"name": "file",
+			"description": "presentation client",
+			"basePath": "..",
+			"showDirectoryContents": true,
+			"paths": {
+				"/client/*": "./client/output/dist",
+				"/slides/*": "./slides",
+				"/present/*": "./present/dist",
+				"*": "./client/output/dist"
+			}
+		}
+	]
+}

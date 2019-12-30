@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>A Step Into Virtual Reality</title>
+	<meta name="description" content="Virtual Reality is a medium that allows us to transcend time and space. With the recent release of capable and affordable consumer-level headsets, VR is assured to grow from a niche market to one with almost limitless potential to connect us">
+	<meta name="author" content="Paul Shannon">
+
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+	<link rel="stylesheet" href="node_modules/reveal.js/css/reveal.css">
+	<link rel="stylesheet" href="node_modules/reveal.js/css/theme/sky.css" id="theme">
+
+	<!-- Code syntax highlighting -->
+	<link rel="stylesheet" href="node_modules/reveal.js/lib/css/zenburn.css">
+	<link rel="stylesheet" href="resources/main.css">
+
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'node_modules/reveal.js/css/print/pdf.css' : 'node_modules/reveal.js/css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+
+<div class="menu-container">
+	<div class="menu">
+		<div class="close-container">
+			<button class="close buttonlink">X</button>
+		</div>
+		<header>
+			<h1>Present Controls</h1>
+		</header>
+		<div>
+			<ul>
+				<li><button class="share buttonlink">Share Screen</button></li><!-- Share Screen / Stop Sharing -->
+				<li>Connect</li><!-- Connect to present / disconnect -->
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="reveal">
+	<!-- Any section element inside of this container is displayed as a slide -->
+	<div class="slides">
+		<!-- TODO title -->
+		<section>
+			<h2>A Step Into Virtual Reality</h2>
+		</section>
+
+		<section>
+			<h2>Hello!</h2>
+
+			<div class="two-column">
+				<div>
+					<h3>Paul Shannon</h3>
+					<img src="assets/images/sitepen.png" class="removeFormatting">
+				</div>
+				<div>
+					<ul>
+						<li>Sr Engineer @ SitePen</li>
+						<li>Talkscript Podcast</li>
+						<li>Phoenix TypeScript</li>
+						<li>Committer: Dojo, Intern</li>
+						<li class="github no-style"><a href="https://github.com/devpaul">devpaul</a></li>
+						<li class="twitter no-style"><a href="https://twitter.com/developerPaul">@developerPaul</a></li>
+					</ul>
+				</div>
+			</div>
+			<aside class="notes">
+				TODO add images to intern, podcast, phxts, github, twitter
+			</aside>
+		</section>
+	</div>
+</div>
+
+<script src="node_modules/reveal.js/lib/js/head.min.js"></script>
+<script src="node_modules/reveal.js/js/reveal.js"></script>
+<script type="module" src="dist/index.js"></script>
+<script type="module" src="dist/menu.js"></script>
+
+</body>
+</html>
