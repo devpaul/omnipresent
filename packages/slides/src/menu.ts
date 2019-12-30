@@ -1,23 +1,27 @@
-import { getScreenMedia } from "./screen";
+import { getScreenMedia, getScreenshot } from "./screen";
+import { getMenuContainer, getPreviewContainer, getPreview, getMenuCloseButton, getShareButton, getSnapshotButton, getPreviewCloseButton, getOpenPreviewButton } from "./elements";
 
-function getMenuContainer() {
-	return document.querySelector('.menu-container');
-}
-
-function getCloseButton() {
-	return document.querySelector('.menu-container .close');
-}
-
-function getShareButton() {
-	return document.querySelector('.share');
-}
-
-function openMenu() {
+export function openMenu() {
 	getMenuContainer()?.classList.add('opened');
 }
 
 function closeMenu() {
 	getMenuContainer()?.classList.remove('opened');
+}
+
+function openPreview() {
+	getPreviewContainer()?.classList.add('opened');
+}
+
+function closePreview() {
+	getPreviewContainer()?.classList.remove('opened');
+}
+
+export function setPreview(src: string) {
+	const img = document.createElement('img');
+	img.src = src;
+	getPreview()!.innerHTML = '';
+	getPreview()?.appendChild(img);
 }
 
 // Initialize
@@ -28,8 +32,23 @@ document.addEventListener('keyup', (event) => {
 	}
 });
 
-getCloseButton()?.addEventListener('click', closeMenu);
+getMenuCloseButton()?.addEventListener('click', closeMenu);
 
 getShareButton()?.addEventListener('click', async () => {
 	const media = await getScreenMedia();
+});
+
+getSnapshotButton()?.addEventListener('click', async () => {
+	closeMenu();
+	const media = await getScreenMedia();
+	const image = await getScreenshot();
+	setPreview(image);
+	openPreview();
+});
+
+getPreviewCloseButton()?.addEventListener('click', closePreview);
+
+getOpenPreviewButton()?.addEventListener('click', () => {
+	closeMenu();
+	openPreview();
 });

@@ -24,8 +24,12 @@ export async function getScreenshot() {
 	const context = canvas.getContext('2d');
 	context?.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-	const img = canvas.toDataURL('image/png');
-	return (await fetch(img)).blob();
+	return canvas.toDataURL('image/png');
+}
+
+export async function dataUrlToBlob(dataUrl:string) {
+	const request = await fetch(dataUrl);
+	return request.blob();
 }
 
 export function isConnected() {

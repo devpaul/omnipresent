@@ -35,8 +35,8 @@
 
 <body>
 
-<div class="menu-container">
-	<div class="menu">
+<div class="menu-container popup-underlay">
+	<div class="popup">
 		<div class="close-container">
 			<button class="close buttonlink">X</button>
 		</div>
@@ -46,9 +46,17 @@
 		<div>
 			<ul>
 				<li><button class="share buttonlink">Share Screen</button></li><!-- Share Screen / Stop Sharing -->
-				<li>Connect</li><!-- Connect to present / disconnect -->
+				<li><button class="snapshot buttonlink">Take Snapshot</button></li>
+				<li><button class="openPreview buttonlink">Open Preview</button></li>
 			</ul>
 		</div>
+	</div>
+</div>
+
+<div class="preview-container popup-underlay">
+	<div class="popup">
+		<div class="close-container"><button class="close buttonlink">X</button></div>
+		<div class="preview"></div>
 	</div>
 </div>
 

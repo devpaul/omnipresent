@@ -1,4 +1,7 @@
 /// <reference types="reveal" />
+import { openMenu, setPreview } from './menu';
+import { isConnected, getScreenshot } from './screen';
+import { addSlideTransitionListener } from './slides';
 
 declare const hljs: typeof import('highlight.js');
 
@@ -56,14 +59,18 @@ Reveal.initialize({
 });
 
 Reveal.addEventListener('ready', function (event) {
-	// TODO open menu
+	openMenu();
 });
 
-Reveal.addEventListener('slidechanged', function (event) {
-	console.log('slide changed', event);
-	// TODO take screenshot
-	// TODO upload screenshot to server
-	// TODO set screen to use screenshot
-});
-
-// TODO add menu to connect to server
+addSlideTransitionListener(async (node: Element) => {
+	if (node !== Reveal.getCurrentSlide()) {
+		console.warn('transitioned slide is not the current slide');
+		return;
+	}
+	if (isConnected()) {
+		const url = await getScreenshot();
+		setPreview(url);
+		// TODO upload screenshot to server
+		// TODO tell presenter to use screen
+	}
+})
