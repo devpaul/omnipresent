@@ -11,6 +11,7 @@
 			"name": "upload",
 			"path": "/upload/*",
 			"directory": "./uploads",
+			"allowOverwrite": true,
 			"createUploadDirectory": true
 		},
 		{

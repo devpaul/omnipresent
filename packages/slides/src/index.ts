@@ -1,6 +1,6 @@
 /// <reference types="reveal" />
 import { openMenu, setPreview } from './menu';
-import { isConnected, getScreenshot } from './screen';
+import { isConnected, getScreenshot, dataUrlToBlob } from './screen';
 import { addSlideTransitionListener } from './slides';
 
 declare const hljs: typeof import('highlight.js');
@@ -70,7 +70,16 @@ addSlideTransitionListener(async (node: Element) => {
 	if (isConnected()) {
 		const url = await getScreenshot();
 		setPreview(url);
-		// TODO upload screenshot to server
+
+		// upload screenshot to server
+		const imageBlob = await dataUrlToBlob(url);
+		var fd = new FormData();
+		fd.append('upl', imageBlob, `slide-${Reveal.getProgress()}.png`);
+
+		fetch('/upload/', {
+			method: 'POST',
+			body: fd
+		});
 		// TODO tell presenter to use screen
 	}
 })
