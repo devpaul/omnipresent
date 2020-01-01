@@ -22,10 +22,10 @@
 			"paths": {
 				"/samples/*": "./server/samples",
 				"/files/*": "./server/uploads",
-				"/client/*": "./client/output/dist",
+				"/client/*": "./client/output/dev",
 				"/slides/*": "./slides",
 				"/present/*": "./present/dist",
-				"*": "./client/output/dist"
+				"*": "./client/output/dev"
 			}
 		}
 	]

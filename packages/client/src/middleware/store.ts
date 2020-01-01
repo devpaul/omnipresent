@@ -13,6 +13,10 @@ const initialStateCommand = commandFactory(({ path }) => {
 				color: '#191a47'
 			},
 			screen: {
+				source: {
+					type: 'image',
+					url: '/samples/slide.png'
+				},
 				position: {
 					x: 0,
 					y: 2,

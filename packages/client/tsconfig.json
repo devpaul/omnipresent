@@ -26,6 +26,6 @@
 	},
 	"include": [
 		"./src/**/*.ts",
-		"./tests/**/*.ts", "src/widgets/menu/index.tsx"
+		"./tests/**/*.ts", "src/widgets/menu/index.tsx", "src/main.tsx"
 	]
 }

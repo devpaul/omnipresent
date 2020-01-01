@@ -6,6 +6,7 @@
   "scripts": {
     "remote": "ngrok http 8888",
     "serve": "webserv",
+    "serve:dev": "webserv -c ./webserv-dev.json",
     "start": "run-p serve remote"
   },
   "author": "",

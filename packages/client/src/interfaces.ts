@@ -21,6 +21,25 @@ export interface Sky {
 
 export interface Screen {
 	position: Position;
+	source?: MediaSource;
+}
+
+export type MediaSource = ImageSource | VideoSource | DeckSource;
+
+export interface ImageSource {
+	type: 'image';
+	url: string;
+}
+
+export interface VideoSource {
+	type: 'video';
+	url: string;
+}
+
+export interface DeckSource {
+	type: 'deck';
+	currentSlide: number;
+	slides: string[];
 }
 
 export interface Position {

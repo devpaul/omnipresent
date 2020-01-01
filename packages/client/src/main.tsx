@@ -1,4 +1,4 @@
-import renderer, { w } from '@dojo/framework/core/vdom';
+import renderer, { tsx } from '@dojo/framework/core/vdom';
 import Registry from '@dojo/framework/core/Registry';
 import { registerRouterInjector } from '@dojo/framework/routing/RouterInjector';
 import '@dojo/themes/dojo/index.css';
@@ -10,5 +10,8 @@ import App from './App';
 const registry = new Registry();
 registerRouterInjector(routes, registry);
 
-const r = renderer(() => w(App, {}));
+const r = renderer(() => <App />);
 r.mount({ registry });
+
+// TODO remove dev access
+(window as any).registry = registry;
