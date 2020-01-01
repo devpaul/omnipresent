@@ -1,13 +1,23 @@
 export interface State {
-	/** If the current user has authenticated as the presenter */
-	presenter: boolean;
+	/** If the user is the presenter */
+	isPresenter: boolean;
 	/** If the user is connected to websockets */
-	connected: boolean;
+	isConnected: boolean;
 	/** If the menu should be displayed */
 	openMenu: boolean;
 
-	/** Describes the presentation space */
+	/** Describes the current presentation */
+	presentation: Presentation;
+
+	/** Describes the presentation */
 	space: Space;
+}
+
+export interface Presentation {
+	live: boolean;
+	name: string;
+	description: string;
+	location: string;
 }
 
 export interface Space {

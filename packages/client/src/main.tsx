@@ -12,6 +12,3 @@ registerRouterInjector(routes, registry);
 
 const r = renderer(() => <App />);
 r.mount({ registry });
-
-// TODO remove dev access
-(window as any).registry = registry;

@@ -11,7 +11,7 @@ const factory = create().properties<indexProperties>();
 export default factory(function index({ properties }){
 	const { onClick } = properties();
 	return (<div classes={css.root}>
-		<button id="hamburger" onclick={onClick}>
+		<button id="hamburger" classes={css.button} onclick={onClick}>
 			<img src={menuImage} />
 		</button>
 	</div>);
