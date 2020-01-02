@@ -23,6 +23,14 @@
 
 # Post-MVP
 
+## Define screen location
+
+Allow the presenter to use controls to define where the screen is located
+
+## Define geometry
+
+Allow the presenter to define stage geometry; e.g. a podium
+
 ## Record the presentation
 
 * Record viewer data

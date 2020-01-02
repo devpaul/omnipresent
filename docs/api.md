@@ -11,6 +11,30 @@
 }
 ```
 
+## Space
+
+### Refresh Space
+
+Describes the virtual items in the space
+
+```javascript
+{
+	type: 'space';
+	screen: {
+		position: { x: number; y: number; z: number };
+	};
+	sky: {
+		color: string;
+	};
+	viewer: {
+		position: { x: number; y: number; z: number }
+	};
+	geometry: unknown[];
+}
+```
+
+The geometry shall describe "drawn" geometries outlined by the presenter
+
 ## Screen
 
 ### Show Image
