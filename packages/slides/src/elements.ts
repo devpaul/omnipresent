@@ -29,3 +29,11 @@ export function getPreview() {
 export function getOpenPreviewButton() {
 	return document.querySelector('.openPreview');
 }
+
+export function getConnectButton() {
+	return document.querySelector('.menu-options .connect');
+}
+
+export function getDisconnectButton() {
+	return document.querySelector('.menu-options .disconnect');
+}

@@ -7,3 +7,58 @@
 	max-width: 100%;
 	max-height: 85vh;
 }
+
+.indicator {
+	height: 0.9em;
+	width: 0.9em;
+	border-radius: 50%;
+	display: inline-block;
+	margin-right: 1em;
+	background-color: red;
+}
+
+body.connected {
+	.indicator {
+		background-color: green;
+	}
+
+	.menu-options {
+		.connect {
+			display: none;
+		}
+
+		.disconnect {
+			display: block;
+		}
+	}
+}
+
+body.sharing {
+	.menu-options {
+		.stopSharing {
+			display: block;
+		}
+
+		.snapshot {
+			display: block;
+		}
+
+		.share {
+			display: none;
+		}
+	}
+}
+
+.menu-options {
+	.stopSharing {
+		display: none;
+	}
+
+	.snapshot {
+		display: none;
+	}
+
+	.disconnect {
+		display: none;
+	}
+}

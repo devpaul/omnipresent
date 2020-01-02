@@ -10,6 +10,14 @@ export function getScreenMedia() {
 	return media;
 }
 
+export async function stopSharing() {
+	if (media) {
+		const m = media;
+		media = undefined;
+		(await m).getTracks().forEach(track => track.stop());
+	}
+}
+
 export async function getScreenshot() {
 	const canvas = document.createElement('canvas');
 	const video = document.createElement('video');

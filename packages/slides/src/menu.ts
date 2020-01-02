@@ -1,5 +1,6 @@
 import { getScreenMedia, getScreenshot } from "./screen";
-import { getMenuContainer, getPreviewContainer, getPreview, getMenuCloseButton, getShareButton, getSnapshotButton, getPreviewCloseButton, getOpenPreviewButton } from "./elements";
+import { getMenuContainer, getPreviewContainer, getPreview, getMenuCloseButton, getShareButton, getSnapshotButton, getPreviewCloseButton, getOpenPreviewButton, getConnectButton, getDisconnectButton } from "./elements";
+import { connect, disconnect } from "./connection/connection";
 
 export function openMenu() {
 	getMenuContainer()?.classList.add('opened');
@@ -36,6 +37,10 @@ getMenuCloseButton()?.addEventListener('click', closeMenu);
 
 getShareButton()?.addEventListener('click', async () => {
 	const media = await getScreenMedia();
+	document.body.classList.add('sharing');
+	media.getVideoTracks()[0]?.addEventListener('ended', () => {
+		document.body.classList.remove('sharing');
+	});
 });
 
 getSnapshotButton()?.addEventListener('click', async () => {
@@ -51,4 +56,16 @@ getPreviewCloseButton()?.addEventListener('click', closePreview);
 getOpenPreviewButton()?.addEventListener('click', () => {
 	closeMenu();
 	openPreview();
+});
+
+getConnectButton()?.addEventListener('click', async () => {
+	const socket = await connect();
+	document.body.classList.add('connected');
+	socket.addEventListener('close', () => {
+		document.body.classList.remove('connected');
+	});
+});
+
+getDisconnectButton()?.addEventListener('click', () => {
+	disconnect();
 });
