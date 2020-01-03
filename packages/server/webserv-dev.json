@@ -5,7 +5,7 @@
 			"level": "debug"
 		},
 		{
-			"name": "chat"
+			"name": "omnipresent"
 		},
 		{
 			"name": "upload",
@@ -20,6 +20,7 @@
 			"basePath": "..",
 			"showDirectoryContents": true,
 			"paths": {
+				"/producer/*": "./producer/output/dist",
 				"/common/*": "./common/dist",
 				"/samples/*": "./server/samples",
 				"/files/*": "./server/uploads",

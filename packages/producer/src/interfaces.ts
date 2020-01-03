@@ -1,6 +1,7 @@
 export interface State {
 	request: Requests;
 	isConnected: boolean;
+	isSharing: boolean;
 }
 
 export interface Requests {

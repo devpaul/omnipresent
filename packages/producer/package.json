@@ -1,5 +1,5 @@
 {
-  "name": "assistant",
+  "name": "present-producer",
   "version": "1.0.0",
   "scripts": {
     "dev": "dojo build --mode dev --watch --serve",

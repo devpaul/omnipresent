@@ -1,8 +1,7 @@
 {
-  "name": "present",
+  "name": "omnipresent",
   "version": "1.0.0",
-  "description": "Telepresent presentations",
-  "main": "index.js",
+  "description": "Omnipresent presentations",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
