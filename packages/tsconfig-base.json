@@ -1,0 +1,19 @@
+{
+	"version": "3.7",
+	"compilerOptions": {
+		"target": "es6",
+		"baseUrl": ".",
+		"downlevelIteration": true,
+		"declaration": true,
+		"module": "umd",
+		"moduleResolution": "node",
+		"strict": true,
+		"sourceMap": true,
+		"lib": [
+			"dom",
+			"es2015",
+			"es2017.object",
+			"esnext.asynciterable"
+		]
+	}
+}

@@ -2,6 +2,7 @@
 import { openMenu, setPreview } from './menu';
 import { isConnected, getScreenshot, dataUrlToBlob } from './screen';
 import { addSlideTransitionListener } from './slides';
+import { uploadImage } from 'common/api/upload';
 
 declare const hljs: typeof import('highlight.js');
 
@@ -72,6 +73,7 @@ addSlideTransitionListener(async (node: Element) => {
 		setPreview(url);
 
 		// upload screenshot to server
+		uploadImage
 		const imageBlob = await dataUrlToBlob(url);
 		var fd = new FormData();
 		fd.append('upl', imageBlob, `slide-${Reveal.getProgress()}.png`);

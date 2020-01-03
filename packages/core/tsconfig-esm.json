@@ -4,16 +4,10 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"rootDir": "src",
-		"outDir": "./dist",
-		"composite": true,
-		"paths": {
-			"common/*": [ "../common/*" ]
-		}
+		"outDir": "./dist/esm",
+		"module": "ESNext"
 	},
 	"include": [
 		"./src/**/*.ts"
-	],
-	"references": [
-		{ "path": "../common" }
 	]
 }

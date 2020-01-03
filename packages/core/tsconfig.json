@@ -4,16 +4,9 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"rootDir": "src",
-		"outDir": "./dist",
-		"composite": true,
-		"paths": {
-			"common/*": [ "../common/*" ]
-		}
+		"outDir": "./dist/umd"
 	},
 	"include": [
 		"./src/**/*.ts"
-	],
-	"references": [
-		{ "path": "../common" }
 	]
 }

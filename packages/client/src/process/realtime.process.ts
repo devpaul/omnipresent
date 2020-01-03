@@ -1,6 +1,6 @@
 import { createCommandFactory, createProcess } from "@dojo/framework/stores/process";
 import { State } from '../interfaces';
-import { wait } from '../utils/websocket';
+import { wait } from 'present-core/util/websocket';
 import { replace } from '@dojo/framework/stores/state/operations';
 import { getWebSocketServer } from '../config';
 

@@ -20,6 +20,7 @@
 			"basePath": "..",
 			"showDirectoryContents": true,
 			"paths": {
+				"/common/*": "./common/",
 				"/samples/*": "./server/samples",
 				"/files/*": "./server/uploads",
 				"/client/*": "./client/output/dist",

@@ -5,7 +5,7 @@ export const enum WebSocketState {
 	Closed = 3
 }
 
-export function wait(socket?: WebSocket) {
+export function wait(socket?: WebSocket): Promise<WebSocket> {
 	if (!socket) {
 		return Promise.reject(new Error('not connected'));
 	}
@@ -13,7 +13,7 @@ export function wait(socket?: WebSocket) {
 		case WebSocketState.Connecting:
 			return new Promise((resolve, reject) => {
 				const onOpen = () => {
-					resolve();
+					resolve(socket);
 					socket.removeEventListener('open', onOpen);
 					socket.removeEventListener('error', reject);
 					socket.removeEventListener('close', reject);
