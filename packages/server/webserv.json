@@ -21,7 +21,7 @@
 			"showDirectoryContents": true,
 			"paths": {
 				"/producer/*": "./producer/output/dist",
-				"/common/*": "./common/",
+				"/present-core/*": "./core/dist/esm",
 				"/samples/*": "./server/samples",
 				"/files/*": "./server/uploads",
 				"/client/*": "./client/output/dist",

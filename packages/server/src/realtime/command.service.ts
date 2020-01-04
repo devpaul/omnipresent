@@ -19,7 +19,7 @@ export interface Message {
 }
 
 function isMessage(value: any): value is Message {
-	return value && typeof value === 'object' && value.action;
+	return value && typeof value === 'object' && typeof value.action === 'string';
 }
 
 export function commandService({ commands, defaultHandler }: CommandServiceProperties): Service {
@@ -27,10 +27,11 @@ export function commandService({ commands, defaultHandler }: CommandServicePrope
 
 	const upgrade = realtimeUpgrade({
 		onMessage(data, con, methods) {
-			if (isMessage(data)) {
-				const handler = commandMap.get(data.action) || defaultHandler;
+			const message = typeof data === 'string' ? JSON.parse(data) : data;
+			if (isMessage(message)) {
+				const handler = commandMap.get(message.action) || defaultHandler;
 				if (handler) {
-					handler(data, con, methods);
+					handler(message, con, methods);
 				}
 			}
 		}

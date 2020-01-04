@@ -1,3 +1,5 @@
+import { once } from '/present-core/util/handlers';
+
 export type TransitionCallback = (node: Element) => void;
 
 const transitionCallbacks: TransitionCallback[] = [];
@@ -6,16 +8,8 @@ export function addSlideTransitionListener(callback: TransitionCallback) {
 	transitionCallbacks.push(callback);
 }
 
-function once(target: Element, name: string, handler: () => void) {
-	const wrapper = () => {
-		handler();
-		target.removeEventListener(name, wrapper);
-	}
-	target.addEventListener(name, wrapper);
-}
-
 function waitForTransition(node: Element) {
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve) => {
 		once(node, 'transitionstart', () => {
 			once(node, 'transitionend', () => {
 				console.log('transition complete');

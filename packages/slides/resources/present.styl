@@ -22,43 +22,23 @@ body.connected {
 		background-color: green;
 	}
 
-	.menu-options {
-		.connect {
-			display: none;
-		}
+	.connectedStatus {
+		display: block;
+	}
 
-		.disconnect {
-			display: block;
-		}
+	.disconnectedStatus {
+		display: none;
+	}
+
+	.connect-form {
+		display: none;
 	}
 }
 
-body.sharing {
-	.menu-options {
-		.stopSharing {
-			display: block;
-		}
-
-		.snapshot {
-			display: block;
-		}
-
-		.share {
-			display: none;
-		}
-	}
+.connectedStatus {
+	display: none;
 }
 
-.menu-options {
-	.stopSharing {
-		display: none;
-	}
-
-	.snapshot {
-		display: none;
-	}
-
-	.disconnect {
-		display: none;
-	}
+.connect-form {
+	display: block;
 }

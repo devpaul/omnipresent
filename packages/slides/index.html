@@ -41,28 +41,25 @@
 			<button class="close buttonlink">X</button>
 		</div>
 		<header>
-			<h1>Present Controls</h1>
+			<h1>Presentation Controls</h1>
 		</header>
 		<div>
 			<div class="connected-container">
-				<span class="indicator"></span><span class="message"></span>
+				<div class="connectedStatus">
+					<span class="indicator green"></span><span class="message">Connected</span>
+				</div>
+				<div class="disconnectedStatus">
+					<span class="indicator red"></span><span class="message">Disconnected</span>
+				</div>
 			</div>
-			<ul class="menu-options">
-				<li><button class="share buttonlink">Share Screen</button></li>
-				<li><button class="stopSharing buttonlink">Stop Sharing</button></li>
-				<li><button class="snapshot buttonlink">Take Snapshot</button></li>
-				<li><button class="openPreview buttonlink">Open Preview</button></li>
-				<li><button class="connect buttonlink">Connect</button></li>
-				<li><button class="disconnect buttonlink">Disconnect</button></li>
-			</ul>
+			<div class="connect-form">
+				<form>
+					<label for="auth">Authenticate</label>
+					<input id="auth" type="password">
+					<button class="connectButton">Connect</button>
+				</form>
+			</div>
 		</div>
-	</div>
-</div>
-
-<div class="preview-container popup-underlay">
-	<div class="popup">
-		<div class="close-container"><button class="close buttonlink">X</button></div>
-		<div class="preview"></div>
 	</div>
 </div>
 
@@ -103,7 +100,6 @@
 <script src="node_modules/reveal.js/lib/js/head.min.js"></script>
 <script src="node_modules/reveal.js/js/reveal.js"></script>
 <script type="module" src="dist/index.js"></script>
-<script type="module" src="dist/menu.js"></script>
 
 </body>
 </html>

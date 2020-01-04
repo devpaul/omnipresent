@@ -1,14 +1,28 @@
 import { getWebSocketServer } from "../config";
 import { wait } from "../util/websocket";
-import { v4 as uuid } from 'uuid';
 
 let socket: WebSocket | undefined;
+const handlerMap = new Map<string, MessageHandler<Message>>();
+
+export interface Message {
+	action: string;
+}
+
+export type MessageHandler<T extends Message = Message> = (this: WebSocket, message: T) => void;
+
+function isMessage(value: any): value is Message {
+	return value && typeof value === 'object' && typeof value.action === 'string';
+}
 
 /**
  * Handles incoming message
  */
-function messageHandler(event: any) {
-	console.log('message', event);
+function messageHandler(this: WebSocket, event: MessageEvent) {
+	const message = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+	if (isMessage(message)) {
+		const handler = handlerMap.get(message.action);
+		handler && handler.call(this, message);
+	}
 }
 
 export function connect(url = getWebSocketServer()) {
@@ -52,32 +66,28 @@ export async function sendRaw(data: WebSocketData) {
 	return socket;
 }
 
-export async function send(request: object) {
-	const data = JSON.stringify({
-		requestId: uuid(),
-		...request
-	});
+export async function send(request: Message) {
+	const data = JSON.stringify(request);
 	const ws = await wait(socket);
 
 	ws.send(data);
 }
 
-export async function handle<T>(type: string, handler: (data: T) => void) {
+export function addMessageHandler<T extends Message = Message>(action: string, handler: MessageHandler<T>) {
+	handlerMap.set(action, handler as MessageHandler);
+}
+
+export function addRawHandler(handler: (event: MessageEvent) => void) {
 	if (!socket) {
 		throw new Error('No Connection');
 	}
 
-	const messageHandler = (event: MessageEvent) => {
-		if (event?.data.type === type) {
-			handler(event.data);
-		}
-	}
+	socket.addEventListener('message', handler);
 
-	socket.addEventListener('message', messageHandler);
-
+	const s = socket;
 	return {
 		destroy() {
-			socket?.removeEventListener('message', messageHandler);
+			s.removeEventListener('message', messageHandler);
 		}
 	}
 }

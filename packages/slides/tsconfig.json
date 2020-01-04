@@ -5,15 +5,13 @@
 		"baseUrl": ".",
 		"rootDir": "src",
 		"outDir": "./dist",
+		"module": "ESNext",
 		"composite": true,
 		"paths": {
-			"common/*": [ "../common/*" ]
+			"/present-core/*": [ "../core/dist/esm/*" ]
 		}
 	},
 	"include": [
 		"./src/**/*.ts"
-	],
-	"references": [
-		{ "path": "../common" }
 	]
 }

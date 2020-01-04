@@ -1,8 +1,7 @@
 /// <reference types="reveal" />
-import { openMenu, setPreview } from './menu';
-import { isConnected, getScreenshot, dataUrlToBlob } from './screen';
+import { openMenu, closeMenu, connect } from './menu';
 import { addSlideTransitionListener } from './slides';
-import { uploadImage } from 'common/api/upload';
+import { getMenuCloseButton, getConnectButton } from './elements';
 
 declare const hljs: typeof import('highlight.js');
 
@@ -59,29 +58,28 @@ Reveal.initialize({
 	]
 });
 
+// Initialize WebSockets
+
 Reveal.addEventListener('ready', function (event) {
-	openMenu();
+	// TODO connect
 });
+
+document.addEventListener('keyup', (event) => {
+	if (event.which === 77) {
+		openMenu();
+	}
+});
+
+getMenuCloseButton()?.addEventListener('click', closeMenu);
 
 addSlideTransitionListener(async (node: Element) => {
 	if (node !== Reveal.getCurrentSlide()) {
 		console.warn('transitioned slide is not the current slide');
 		return;
 	}
-	if (isConnected()) {
-		const url = await getScreenshot();
-		setPreview(url);
 
-		// upload screenshot to server
-		uploadImage
-		const imageBlob = await dataUrlToBlob(url);
-		var fd = new FormData();
-		fd.append('upl', imageBlob, `slide-${Reveal.getProgress()}.png`);
+});
 
-		fetch('/upload/', {
-			method: 'POST',
-			body: fd
-		});
-		// TODO tell presenter to use screen
-	}
-})
+getConnectButton()?.addEventListener('click', async () => {
+	connect();
+});

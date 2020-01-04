@@ -1,15 +1,20 @@
-/**
- * Increment the slide to the next slide
- */
-export function nextSlide(socket: WebSocket) {
-	// TODO implement
+import { send, Message, MessageHandler, addMessageHandler } from "../../websocket/connection";
+
+export interface NextSlideMessage extends Message {
+	action: 'nextSlide';
 }
 
 /**
- * Handle a request to increment the slide
+ * Increment the slide to the next slide
  */
-export function handleNextSlide(socket: WebSocket) {
-	// TODO implement
+export function nextSlide() {
+	send({
+		action: 'nextSlide'
+	});
+}
+
+export function handleNextSlide(handler: MessageHandler<NextSlideMessage>) {
+	addMessageHandler('nextSlide', handler);
 }
 
 /**
