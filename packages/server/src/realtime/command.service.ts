@@ -6,11 +6,11 @@ export interface CommandServiceProperties {
 	defaultHandler?: CommandMiddleware;
 }
 
-export type CommandMiddleware = (data: Message, con: Connection, methods: ConnectionMethods) => void;
+export type CommandMiddleware<T extends Message = Message> = (data: T, con: Connection, methods: ConnectionMethods) => void;
 
 export interface Command {
 	action: string;
-	handler: CommandMiddleware;
+	handler: CommandMiddleware<any>;
 }
 
 export interface Message {

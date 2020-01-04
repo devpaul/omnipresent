@@ -1,8 +1,9 @@
 /// <reference types="reveal" />
 import { openMenu, closeMenu, connect } from './menu';
 import { addSlideTransitionListener } from './slides';
-import { getMenuCloseButton, getConnectButton } from './elements';
+import { getMenuCloseButton, getConnectButton, getAuthButton, getAuthInput } from './elements';
 import { slideChanged } from '/present-core/api/websocket/revealjs'
+import { authenticate } from '/present-core/api/websocket/authenticate'
 
 declare const hljs: typeof import('highlight.js');
 
@@ -73,15 +74,25 @@ document.addEventListener('keyup', (event) => {
 
 getMenuCloseButton()?.addEventListener('click', closeMenu);
 
-addSlideTransitionListener(async (node: Element) => {
+addSlideTransitionListener(async (node: Element, event: SlideEvent) => {
 	console.log('transitioned');
 	if (node !== Reveal.getCurrentSlide()) {
 		console.warn('transitioned slide is not the current slide');
 		return;
 	}
-	slideChanged(Reveal.getProgress());
+	slideChanged({
+		slide: Reveal.getIndices().h
+	});
 });
 
 getConnectButton()?.addEventListener('click', async () => {
 	connect();
+});
+
+getAuthButton()?.addEventListener('click', async () => {
+	const secret = getAuthInput()?.value || '';
+	authenticate({
+		role: 'slides',
+		secret
+	})
 });

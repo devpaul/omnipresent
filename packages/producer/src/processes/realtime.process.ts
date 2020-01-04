@@ -16,11 +16,11 @@ const initializeRealtimeCommand = commandFactory<{ store: Store<State> }>(({ pay
 });
 
 const nextSlideCommand = commandFactory(() => {
-	nextSlide();
+	nextSlide({});
 });
 
 const previousSlideCommand = commandFactory(() => {
-	previousSlide();
+	previousSlide({});
 });
 
 const connectCommand = commandFactory(async ({ path }) => {

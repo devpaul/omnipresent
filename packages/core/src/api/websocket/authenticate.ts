@@ -1,7 +1,11 @@
-import { send } from "src/websocket/connection";
+import { Message, send, MessageHandler, addMessageHandler } from "../../websocket/connection";
+import { createRequest, Action, createHandler, Response, createErrorHandler } from "./api";
 
-export type Role = 'presenter' | 'sharer' | 'viewer';
-
-export function authenticate(socket: WebSocket, role: Role, credentials: string) {
-	// TODO implement
+export interface AuthenticatePayload {
+	role: string;
+	secret: string;
 }
+
+export const authenticate = createRequest<AuthenticatePayload>(Action.Authenticate);
+export const handleAuthenticateError = createErrorHandler(Action.Authenticate);
+export const handleAuthenticated = createHandler(Response.Authenticated);

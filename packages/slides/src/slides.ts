@@ -1,6 +1,6 @@
 import { once } from '/present-core/util/handlers';
 
-export type TransitionCallback = (node: Element) => void;
+export type TransitionCallback = (node: Element, event: SlideEvent) => void;
 
 const transitionCallbacks: TransitionCallback[] = [];
 
@@ -23,6 +23,6 @@ Reveal.addEventListener('slidechanged', async (event) => {
 	const slide = Reveal.getCurrentSlide();
 	await waitForTransition(slide);
 	for (let callback of transitionCallbacks) {
-		callback(slide);
+		callback(slide, event);
 	}
 });
