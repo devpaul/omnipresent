@@ -1,8 +1,9 @@
-import { create, tsx } from '@dojo/framework/core/vdom';
 import theme from '@dojo/framework/core/middleware/theme';
+import { create, tsx } from '@dojo/framework/core/vdom';
 import dojo from '@dojo/themes/dojo';
 
-import Menu from './widgets/menu/Menu';
+import MenuProvider from './widgets/menu/Menu.provider';
+import StatusProvider from './widgets/status/Status.provider';
 
 const factory = create({ theme });
 
@@ -11,6 +12,7 @@ export default factory(function App({ middleware: { theme } }) {
 		theme.set(dojo);
 	}
 	return (<div>
-		<Menu isConnected={false} isSharing={false}></Menu>
+		<StatusProvider />
+		<MenuProvider />
 	</div>)
 });

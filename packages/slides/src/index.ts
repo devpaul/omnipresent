@@ -2,6 +2,7 @@
 import { openMenu, closeMenu, connect } from './menu';
 import { addSlideTransitionListener } from './slides';
 import { getMenuCloseButton, getConnectButton } from './elements';
+import { slideChanged } from '/present-core/api/websocket/revealjs'
 
 declare const hljs: typeof import('highlight.js');
 
@@ -61,7 +62,7 @@ Reveal.initialize({
 // Initialize WebSockets
 
 Reveal.addEventListener('ready', function (event) {
-	// TODO connect
+	connect();
 });
 
 document.addEventListener('keyup', (event) => {
@@ -73,11 +74,12 @@ document.addEventListener('keyup', (event) => {
 getMenuCloseButton()?.addEventListener('click', closeMenu);
 
 addSlideTransitionListener(async (node: Element) => {
+	console.log('transitioned');
 	if (node !== Reveal.getCurrentSlide()) {
 		console.warn('transitioned slide is not the current slide');
 		return;
 	}
-
+	slideChanged(Reveal.getProgress());
 });
 
 getConnectButton()?.addEventListener('click', async () => {

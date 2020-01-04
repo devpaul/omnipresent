@@ -66,8 +66,8 @@ export async function sendRaw(data: WebSocketData) {
 	return socket;
 }
 
-export async function send(request: Message) {
-	const data = JSON.stringify(request);
+export async function send<T extends Message = Message>(message: T) {
+	const data = JSON.stringify(message);
 	const ws = await wait(socket);
 
 	ws.send(data);

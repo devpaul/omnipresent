@@ -1,3 +1,7 @@
 {
-	"create-app": {}
+	"create-app": {},
+	"build-app": {
+		"pwa": false,
+		"base": "."
+	}
 }

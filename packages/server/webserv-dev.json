@@ -20,7 +20,7 @@
 			"basePath": "..",
 			"showDirectoryContents": true,
 			"paths": {
-				"/producer/*": "./producer/output/dist",
+				"/producer/*": "./producer/output/dev",
 				"/present-core/*": "./core/dist/esm",
 				"/samples/*": "./server/samples",
 				"/files/*": "./server/uploads",

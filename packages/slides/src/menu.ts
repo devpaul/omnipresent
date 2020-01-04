@@ -1,6 +1,6 @@
 import { getMenuContainer, getMenuCloseButton } from "./elements";
 import { connect as connectSocket, disconnect as disconnectService } from '/present-core/websocket/connection';
-import { handleNextSlide } from '/present-core/api/websocket/revealjs';
+import { handleNextSlide, handlePreviousSlide } from '/present-core/api/websocket/revealjs';
 
 export function openMenu() {
 	getMenuContainer()?.classList.add('opened');
@@ -20,5 +20,9 @@ export async function connect() {
 
 	handleNextSlide(() => {
 		Reveal.next();
+	});
+
+	handlePreviousSlide(() => {
+		Reveal.prev();
 	});
 }
