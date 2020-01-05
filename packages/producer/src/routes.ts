@@ -5,11 +5,11 @@ export default [
 		defaultRoute: true
 	},
 	{
-		path: 'about',
-		outlet: 'about'
+		path: 'preview/video',
+		outlet: 'videoPreview'
 	},
 	{
-		path: 'profile',
-		outlet: 'profile'
+		path: 'preview',
+		outlet: 'preview'
 	}
 ];

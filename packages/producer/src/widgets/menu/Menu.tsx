@@ -1,4 +1,5 @@
 import { create, tsx } from '@dojo/framework/core/vdom';
+import Link from '@dojo/framework/routing/Link';
 import * as css from './menu.m.css';
 
 export interface MenuProperties {
@@ -29,6 +30,8 @@ export default factory(function Menu({ properties }){
 				{ isSharing && <li><button onclick={() => { onSnapshot?.() } }>Take Snapshot</button></li> }
 				{ isConnected && <li><button onclick={() => { onNextSlide?.() } }>Next Slide</button></li> }
 				{ isConnected && <li><button onclick={() => { onPreviousSlide?.() } }>Previous Slide</button></li> }
+				<Link to="preview">Preview</Link>
+				<Link to="videoPreview">Video Preview</Link>
 			</ul>
 		</div>
 	);
