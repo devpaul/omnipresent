@@ -41,26 +41,31 @@
 			<button class="close buttonlink">X</button>
 		</div>
 		<header>
-			<h1>Presentation Controls</h1>
+			<h1>Presentation</h1>
 		</header>
 		<div>
 			<div class="connected-container">
-				<div class="connectedStatus">
+				<div class="connected-status">
 					<span class="indicator green"></span><span class="message">Connected</span>
 				</div>
-				<div class="disconnectedStatus">
+				<div class="disconnected-status">
 					<span class="indicator red"></span><span class="message">Disconnected</span>
 				</div>
+				<div class="connect-form">
+					<button class="connectButton">Connect</button>
+				</div>
 			</div>
-			<div class="connect-form">
-				<button class="connectButton">Connect</button>
-			</div>
-			<div>
-				<form>
-					<label for="auth">Authenticate</label>
-					<input id="auth" type="password">
-					<button class="authenticateButton">Authenticate</button>
-				</form>
+			<div class="authenticated-container">
+				<div class="authed">
+					<span class="indicator green"></span><span class="message">Authenticated</span>
+				</div>
+				<div class="unauthed">
+					<span class="indicator red"></span><span class="message">Not Authenticated</span>
+				</div>
+				<div class="auth-controls">
+					<div><input id="auth" type="password"></div>
+					<div><button class="authenticateButton">Authenticate</button></div>
+				</div>
 			</div>
 		</div>
 	</div>

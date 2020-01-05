@@ -14,31 +14,64 @@
 	border-radius: 50%;
 	display: inline-block;
 	margin-right: 1em;
-	background-color: red;
+
+	&.red {
+		background-color: red;
+	}
+
+	&.green {
+		background-color: green;
+	}
 }
 
 body.connected {
-	.indicator {
-		background-color: green;
-	}
-
-	.connectedStatus {
+	.connected-status {
 		display: block;
 	}
 
-	.disconnectedStatus {
+	.disconnected-status {
 		display: none;
 	}
 
 	.connect-form {
 		display: none;
 	}
+
+	.authenticated-container {
+		display: block;
+	}
 }
 
-.connectedStatus {
+body.authenticated {
+	.authed {
+		display: block;
+	}
+
+	.unauthed {
+		display: none;
+	}
+
+	.auth-controls {
+		display: none;
+	}
+}
+
+.connected-status {
 	display: none;
 }
 
-.connect-form {
-	display: block;
+.authed {
+	display: none;
+}
+
+.auth-controls {
+	margin: 10px;
+
+	> div {
+		margin-bottom: 10px;
+	}
+}
+
+.authenticated-container {
+	display: none;
 }

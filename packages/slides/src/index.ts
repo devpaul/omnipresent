@@ -1,5 +1,5 @@
 /// <reference types="reveal" />
-import { openMenu, closeMenu, connect } from './menu';
+import { openMenu, closeMenu, connect, sendAuthentication } from './menu';
 import { addSlideTransitionListener } from './slides';
 import { getMenuCloseButton, getConnectButton, getAuthButton, getAuthInput } from './elements';
 import { slideChanged } from '/present-core/api/websocket/revealjs'
@@ -63,6 +63,10 @@ Reveal.initialize({
 // Initialize WebSockets
 
 Reveal.addEventListener('ready', function (event) {
+	const authInput = getAuthInput();
+	if (authInput) {
+		authInput.value = localStorage.getItem('secret') || '';
+	}
 	connect();
 });
 
@@ -88,9 +92,6 @@ getConnectButton()?.addEventListener('click', async () => {
 });
 
 getAuthButton()?.addEventListener('click', async () => {
-	const secret = getAuthInput()?.value || '';
-	authenticate({
-		role: 'slides',
-		secret
-	})
+	const secret = getAuthInput()?.value;
+	sendAuthentication(secret);
 });
