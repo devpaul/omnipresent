@@ -3,10 +3,13 @@ import { Message, send, MessageHandler, addMessageHandler } from "../../websocke
 export const enum Action {
 	Authenticate = 'authenticate',
 	GetStatus = 'getStatus',
+	HideLaser = 'hideLaser',
 	NextSlide = 'nextSlide',
 	PreviousSlide = 'previousSlide',
 	RoleConnected = 'roleConnected',
 	RoleLeft = 'roleLeft',
+	ShowImage = 'showImage',
+	ShowLaser = 'showLaser',
 	SlideChanged = 'slideChanged'
 }
 

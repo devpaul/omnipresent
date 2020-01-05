@@ -2,12 +2,19 @@ import { commandService, CommandMiddleware, Message } from "../realtime/command.
 import { SECRET } from "../config";
 import { Connection, ConnectionMethods } from "../realtime/realtime.upgrade";
 import { log } from "webserv/src/core/log";
+import { listRoles, userLeft, addAuthenticated, isAuthenticated } from "./omni.state";
 
 export const enum Action {
 	Authenticate = 'authenticate',
 	GetStatus = 'getStatus',
+	HideLaser = 'hideLaser',
+	NextSlide = 'nextSlide',
+	PreviousSlide = 'previousSlide',
 	RoleConnected = 'roleConnected',
 	RoleLeft = 'roleLeft',
+	ShowImage = 'showImage',
+	ShowLaser = 'showLaser',
+	SlideChanged = 'slideChanged'
 }
 
 export const enum Response {
@@ -41,12 +48,21 @@ function sendResponse<T extends object>(con: Connection, message: Message & T) {
 	con.client.send(JSON.stringify(message));
 }
 
-const defaultHandler: CommandMiddleware = (data, con, { getAll }) => {
+const echo: CommandMiddleware = (data, con, { getAll }) => {
 	const message = JSON.stringify(data);
 	for (let connection of getAll()) {
 		if (con.id !== connection.id) {
 			connection.client.send(message);
 		}
+	}
+}
+
+const authenticatedEcho: CommandMiddleware = (data, con, methods) => {
+	if (isAuthenticated(con.id)) {
+		echo(data, con, methods);
+	}
+	else {
+		log.warn(`[OMNI] Unauthenticated user action "${data.action} by ${con.id}"`)
 	}
 }
 
@@ -56,44 +72,11 @@ interface AuthenticationMessage {
 	secret: string;
 }
 
-interface AuthenticatedUser {
-	roles: Set<string>
-}
-
-const roleMap = new Map<string, Set<string>>();
-const authenticated = new Map<string, AuthenticatedUser>();
-
-function userLeft(id: string, {getAll}: ConnectionMethods) {
-	const user = authenticated.get(id);
-	authenticated.delete(id);
-
-	if (user) {
-		for (let role in user.roles) {
-			roleMap.get(role)?.delete(id);
-			if (!roleMap.get(role)?.size) {
-				roleMap.delete(role);
-				announce(getAll(), {
-					action: Action.RoleLeft,
-					role
-				})
-			}
-		}
-	}
-}
-
 const authenticateHandler: CommandMiddleware<AuthenticationMessage> = (message, con, { getAll }) => {
 	if (message.secret === SECRET) {
 		const { role } = message;
 		const { id } = con;
-		if (!roleMap.has(role)) {
-			roleMap.set(role, new Set());
-		}
-		const users = roleMap.get(role);
-		users?.add(id);
-
-		const meta = authenticated.get(id) || { roles: new Set() };
-		authenticated.set(id, meta);
-		meta.roles.add(role);
+		addAuthenticated(id, role);
 
 		sendResponse(con, { action: Response.Authenticated, role });
 		log.info(`[OMNI] Authenticated User "${con.id} as ${role}"`);
@@ -107,7 +90,7 @@ const authenticateHandler: CommandMiddleware<AuthenticationMessage> = (message, 
 const getStatusHandler: CommandMiddleware = (message, con, { getSize }) => {
 	sendResponse<StatusPayload>(con, {
 		action: Response.Status,
-		roles: Array.from(roleMap.keys()),
+		roles: listRoles(),
 		connectionCount: getSize()
 	});
 }
@@ -115,10 +98,25 @@ const getStatusHandler: CommandMiddleware = (message, con, { getSize }) => {
 export const omni = commandService({
 	commands: [
 		{ action: Action.Authenticate, handler: authenticateHandler },
-		{ action: Action.GetStatus, handler: getStatusHandler }
+		{ action: Action.GetStatus, handler: getStatusHandler },
+		{ action: Action.HideLaser, handler: authenticatedEcho },
+		{ action: Action.NextSlide, handler: authenticatedEcho },
+		{ action: Action.PreviousSlide, handler: authenticatedEcho },
+		{ action: Action.ShowImage, handler: authenticatedEcho },
+		{ action: Action.ShowLaser, handler: authenticatedEcho },
+		{ action: Action.SlideChanged, handler: authenticatedEcho }
 	],
-	defaultHandler,
-	onDisconnect(con, methods) {
-		userLeft(con.id, methods);
+	defaultHandler: echo,
+	onDisconnect(con, {getAll}) {
+		const result = userLeft(con.id);
+		if (result.authenticated) {
+			for (let role of result.removedRoles) {
+				announce(getAll(), {
+					action: Action.RoleLeft,
+					role
+				});
+			}
+		}
+
 	}
 });

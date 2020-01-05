@@ -1,47 +1,24 @@
-export function showImage(socket: WebSocket) {
-	// TODO implement
+import { createRequest, Action, createHandler } from "./api";
+
+export interface ShowImagePayload {
+	src: string;
 }
 
-export function handleShowImage(socket: WebSocket) {
-	// TODO implement
+export interface ShowSlidePayload {
+	deck: string;
+	slide: { h: number; v: number; };
+	src: string;
 }
 
-export function showDeck(socket: WebSocket) {
-	// TODO implement
+export interface PointerPayload {
+	position: { x: number, y: number }
 }
 
-export function handleShowDeck(socket: WebSocket) {
-	// TODO implement
-}
+const showImage = createRequest<ShowImagePayload>(Action.ShowImage);
+const handleShowImage = createHandler<ShowImagePayload>(Action.ShowImage)
 
-export function changeSlide(socket: WebSocket) {
-	// TODO implement
-}
+const showLaser = createRequest<PointerPayload>(Action.ShowLaser);
+const handleShowLaser = createHandler<PointerPayload>(Action.ShowLaser);
 
-export function handleChangeSlide(socket: WebSocket) {
-	// TODO implement
-}
-
-export function getState(socket: WebSocket) {
-	// TODO implement
-}
-
-export function handleGetState(socket: WebSocket) {
-	// TODO implement
-}
-
-export function showLaser(socket: WebSocket) {
-	// TODO implement
-}
-
-export function handleShowLaser(socket: WebSocket) {
-	// TODO implement
-}
-
-export function hideLaser(socket: WebSocket) {
-	// TODO implement
-}
-
-export function handleHideLaser(socket: WebSocket) {
-	// TODO implement
-}
+const hideLaser = createRequest(Action.HideLaser);
+const handleHideLaser = createRequest(Action.HideLaser);

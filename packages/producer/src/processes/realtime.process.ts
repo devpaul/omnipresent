@@ -5,14 +5,28 @@ import { handleStatus, handleRoleConnected, handleRoleLeft, getStatus } from 'pr
 import { connect, disconnect } from 'present-core/websocket/connection';
 import { replace } from '@dojo/framework/stores/state/operations';
 import Store from '@dojo/framework/stores/Store';
+import { getScreenshot } from 'present-core/webrtc/screen';
+import { uploadSlide } from 'present-core/api/upload';
 
 const commandFactory = createCommandFactory<State>();
 
 const initializeRealtimeCommand = commandFactory<{ store: Store<State> }>(({ payload: { store }}) => {
-	handleSlideChanged(({ h, v }) => {
+	handleSlideChanged(async ({ h, v }) => {
 		store.apply([
 			replace(store.path('slide'), { h, v })
 		], true);
+
+		if (store.get(store.path('isSharing'))) {
+			const dataUrl = await getScreenshot();
+			const result = await uploadSlide(dataUrl, {
+				deck: 'deck',
+				indexh: h,
+				indexv: v,
+				type: 'png'
+			});
+			// TODO announce to viewers to use the snapshot
+			console.log(result);
+		}
 	});
 
 	handleStatus(({ roles, connectionCount }) => {
