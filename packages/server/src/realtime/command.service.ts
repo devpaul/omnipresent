@@ -1,7 +1,7 @@
 import { Service } from "webserv";
-import { realtimeUpgrade, Connection, ConnectionMethods } from "./realtime.upgrade";
+import { realtimeUpgrade, Connection, ConnectionMethods, RealtimeUpgradeProperties } from "./realtime.upgrade";
 
-export interface CommandServiceProperties {
+export interface CommandServiceProperties extends Omit<RealtimeUpgradeProperties, 'onMessage'> {
 	commands: Command[];
 	defaultHandler?: CommandMiddleware;
 }
@@ -22,7 +22,7 @@ function isMessage(value: any): value is Message {
 	return value && typeof value === 'object' && typeof value.action === 'string';
 }
 
-export function commandService({ commands, defaultHandler }: CommandServiceProperties): Service {
+export function commandService({ commands, defaultHandler, ... rest }: CommandServiceProperties): Service {
 	const commandMap = new Map<string, CommandMiddleware>(commands.map(command => ([command.action, command.handler])));
 
 	const upgrade = realtimeUpgrade({
@@ -34,7 +34,8 @@ export function commandService({ commands, defaultHandler }: CommandServicePrope
 					handler(message, con, methods);
 				}
 			}
-		}
+		},
+		... rest
 	});
 
 	return {

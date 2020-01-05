@@ -80,9 +80,7 @@ addSlideTransitionListener(async (node: Element, event: SlideEvent) => {
 		console.warn('transitioned slide is not the current slide');
 		return;
 	}
-	slideChanged({
-		slide: Reveal.getIndices().h
-	});
+	slideChanged(Reveal.getIndices());
 });
 
 getConnectButton()?.addEventListener('click', async () => {

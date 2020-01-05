@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "run-s clean copy:umd build:esm build:umd",
+    "build": "run-s copy:umd build:esm build:umd",
     "build:esm": "tsc -p ./tsconfig-esm.json",
     "build:umd": "tsc",
     "clean": "shx rm -rf dist",

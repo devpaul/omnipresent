@@ -1,4 +1,5 @@
-import { stopSharing, getScreenMedia } from 'present-core/webrtc/screen';
+import { stopSharing, getScreenMedia, getScreenshot } from 'present-core/webrtc/screen';
+import { uploadImage } from 'present-core/api/upload';
 import { createProcess, createCommandFactory } from '@dojo/framework/stores/process';
 import { State } from '../interfaces';
 import { replace } from '@dojo/framework/stores/state/operations';
@@ -21,8 +22,12 @@ const stopSharingScreenCommand = commandFactory(async ({ path }) => {
 	];
 });
 
-const snapshotCommand = commandFactory(() => {
-	// TODO implement
+const snapshotCommand = commandFactory(async ({ get, path }) => {
+	const dataUrl = await getScreenshot();
+	uploadImage(dataUrl, {
+		name: 'image',
+		type: 'png'
+	});
 });
 
 export const shareScreenProcess = createProcess('share-screen', [shareScreenCommand]);

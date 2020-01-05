@@ -9,7 +9,7 @@ export default factory(function StatusProvider({ middleware: { store }}){
 	const props = {
 		isConnected: get(path('isConnected')),
 		isSharing: get(path('isSharing')),
-		currentSlide: get(path('slide')),
+		currentSlide: get(path('slide', 'h')),
 		...get(path('stats'))
 	};
 

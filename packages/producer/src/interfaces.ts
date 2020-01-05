@@ -3,7 +3,12 @@ export interface State {
 	isConnected: boolean;
 	isSharing: boolean;
 	stats: ShowStats;
-	slide?: number;
+	slide?: SlideIndex;
+}
+
+export interface SlideIndex {
+	h: number;
+	v: number;
 }
 
 export interface Requests {

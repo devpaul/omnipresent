@@ -4,8 +4,8 @@ import { log } from 'webserv/src/core/log';
 
 export interface RealtimeUpgradeProperties {
 	onInit?: (methods: ConnectionMethods) => void;
-	onConnect?: (connection: Connection) => void;
-	onDisconnect?: (connection: Connection) => void;
+	onConnect?: (connection: Connection, methods: ConnectionMethods) => void;
+	onDisconnect?: (connection: Connection, methods: ConnectionMethods) => void;
 	onError?: (error: Error, connection: Connection | string) => void;
 	onMessage?: (data: any, connection: Connection, methods: ConnectionMethods) => void;
 }
@@ -13,6 +13,7 @@ export interface RealtimeUpgradeProperties {
 export interface ConnectionMethods {
 	get(socketId: string): Connection | undefined;
 	getAll(): Iterable<Connection>;
+	getSize(): number;
 }
 
 export class Connection {
@@ -34,6 +35,9 @@ export const realtimeUpgrade: UpgradeMiddlewareFactory<RealtimeUpgradeProperties
 		},
 		getAll() {
 			return connections.values();
+		},
+		getSize() {
+			return connections.size;
 		}
 	};
 
@@ -46,7 +50,7 @@ export const realtimeUpgrade: UpgradeMiddlewareFactory<RealtimeUpgradeProperties
 
 			if (con) {
 				connections.delete(socketId);
-				onDisconnect && onDisconnect(con);
+				onDisconnect?.(con, methods);
 			} else {
 				log.warn(`[WS] Unregistered user ${socketId} closed connection!`);
 			}
@@ -55,7 +59,7 @@ export const realtimeUpgrade: UpgradeMiddlewareFactory<RealtimeUpgradeProperties
 			log.debug(`[WS] {${socketId}} connected`);
 			const con = new Connection(socketId, client);
 			connections.set(con.id, con);
-			onConnect && onConnect(con);
+			onConnect?.(con, methods);
 		},
 		onError(socketId, err) {
 			log.debug(`[WS] {${socketId}} errored. ${err && err.message}`);

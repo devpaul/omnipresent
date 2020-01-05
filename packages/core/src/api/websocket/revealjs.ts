@@ -1,8 +1,8 @@
-import { send, Message, MessageHandler, addMessageHandler } from "../../websocket/connection";
-import { createRequest, Action, createHandler } from "./api";
+import { Action, createHandler, createRequest } from './api';
 
 export interface SlideChangedPayload {
-	slide: number;
+	h: number;
+	v: number;
 }
 
 export const nextSlide = createRequest(Action.NextSlide);

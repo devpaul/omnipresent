@@ -1,4 +1,4 @@
-import { dataUrlToBlob } from "src/webrtc/screen";
+import { dataUrlToBlob } from "../webrtc/screen";
 
 export type ImageType = 'png' | 'jpg';
 
@@ -9,7 +9,8 @@ export interface ImageMetadata {
 
 export interface DeckMetadata {
 	deck: string;
-	slide: number;
+	indexh: number;
+	indexv: number;
 	type: ImageType;
 }
 
@@ -21,24 +22,30 @@ export async function uploadImage(file: Blob | string, { name, type }: ImageMeta
 	var fd = new FormData();
 	const filename = `${name}.${type}`;
 	fd.append('upl', imageBlob, filename);
-
-	return fetch('/upload/', {
+	const result = await fetch('/upload/', {
 		method: 'POST',
 		body: fd
 	});
+	return {
+		result,
+		filename
+	};
 }
 
 /**
  * Upload an image for a slide deck to the server
  */
-export async function uploadDeckImage(file: Blob | string, { deck, slide, type }: DeckMetadata) {
+export async function uploadSlide(file: Blob | string, { deck, indexh, indexv, type}: DeckMetadata) {
 	const imageBlob = typeof file === 'string' ? await dataUrlToBlob(file) : file;
 	var fd = new FormData();
-	const filename = `${deck}-${slide}.${type}`;
+	const filename = `${deck}-${indexh}-${indexv}.${type}`;
 	fd.append('upl', imageBlob, filename);
-
-	return fetch('/upload/', {
+	const result = await fetch('/upload/', {
 		method: 'POST',
 		body: fd
 	});
+	return {
+		filename,
+		result
+	};
 }
