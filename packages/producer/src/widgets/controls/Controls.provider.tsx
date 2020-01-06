@@ -1,8 +1,9 @@
 import { create, tsx } from '@dojo/framework/core/vdom';
 import { store } from '../../middleware/store';
 import Controls, { ControlsProperties } from './Controls';
-import { connectProcess, disconnectProcess, nextSlideProcess, previousSlideProcess } from '../../processes/realtime.process';
 import { shareScreenProcess, stopSharingScreenProcess, snapshotProcess } from '../../processes/webrtc.process';
+import { connectProcess, disconnectProcess } from '../../processes/connection.process';
+import { nextSlideProcess, previousSlideProcess } from '../../processes/slides.process';
 
 const factory = create({ store });
 

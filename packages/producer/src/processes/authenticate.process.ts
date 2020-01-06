@@ -1,6 +1,7 @@
 import { createCommandFactory, createProcess } from "@dojo/framework/stores/process";
 import { State } from '../interfaces';
 import { replace } from '@dojo/framework/stores/state/operations';
+import { authenticate } from 'present-core/api/websocket/authenticate';
 
 const commandFactory = createCommandFactory<State>();
 
@@ -29,8 +30,27 @@ const loadSecretCommand = commandFactory(({ path }) => {
 			replace(path('auth', 'secret'), secret)
 		];
 	}
+});
+
+const setAuthenticatedCommand = commandFactory(({ path }) => {
+	return [
+		replace(path('auth', 'isAuthenticated'), true)
+	];
+});
+
+const setUnauthenticatedCommand = commandFactory(({ path }) => {
+	return [
+		replace(path('auth', 'isAuthenticated'), true)
+	];
+});
+
+const authenticateCommand = commandFactory<{ secret: string }>(({ payload: { secret }}) => {
+	authenticate({ role: 'producer', secret });
 })
 
 export const loadSecretProcess = createProcess('load-secret', [ loadSecretCommand ])
 export const saveSecretProcess = createProcess('save-secret', [ saveSecretCommand ]);
 export const setSecretProcess = createProcess('set-secret', [ setSecretCommand ]);
+export const setUnauthenticatedProcess = createProcess('set-unauthenticated', [ setUnauthenticatedCommand ]);
+export const setAuthenticatedProcess = createProcess('set-authenticated', [ setAuthenticatedCommand ]);
+export const authenticateProcess = createProcess('authenticate', [ authenticateCommand ]);

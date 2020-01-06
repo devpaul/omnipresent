@@ -19,7 +19,7 @@ export default factory(function App({ middleware: { theme, store } }) {
 	}
 
 	return (<div classes={css.root}>
-		<div>
+		<div classes={css.container}>
 			<div>
 				<ControlsProvider />
 			</div>
