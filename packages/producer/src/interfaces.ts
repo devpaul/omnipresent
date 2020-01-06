@@ -1,9 +1,18 @@
 export interface State {
+	auth: Authentication;
 	request: Requests;
 	isConnected: boolean;
 	isSharing: boolean;
-	stats: ShowStats;
+	showPreview: PreviewType | false;
 	slide?: SlideIndex;
+	stats: ShowStats;
+}
+
+export type PreviewType = 'image' | 'video';
+
+export interface Authentication {
+	secret?: string;
+	isAuthenticated: boolean;
 }
 
 export interface SlideIndex {

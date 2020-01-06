@@ -1,6 +1,7 @@
 import { createCommandFactory, createProcess } from "@dojo/framework/stores/process";
 import { State } from '../interfaces';
 import { nextSlide, previousSlide, handleSlideChanged } from 'present-core/api/websocket/revealjs';
+import { handleAuthenticateError, handleAuthenticated, authenticate } from 'present-core/api/websocket/authenticate';
 import { handleStatus, handleRoleConnected, handleRoleLeft, getStatus } from 'present-core/api/websocket/info';
 import { connect, disconnect } from 'present-core/websocket/connection';
 import { replace } from '@dojo/framework/stores/state/operations';
@@ -56,6 +57,18 @@ const initializeRealtimeCommand = commandFactory<{ store: Store<State> }>(({ pay
 				return [ replace(store.path('stats', 'areSlidesConnected'), false) ]
 		}
 	});
+
+	handleAuthenticated(() => {
+		store.apply([
+			replace(store.path('auth', 'isAuthenticated'), true)
+		], true);
+	});
+
+	handleAuthenticateError(() => {
+		store.apply([
+			replace(store.path('auth', 'isAuthenticated'), false)
+		], true);
+	});
 });
 
 const nextSlideCommand = commandFactory(() => {
@@ -86,9 +99,14 @@ const getStatusCommand = commandFactory(() => {
 	getStatus({});
 });
 
+const authenticateCommand = commandFactory<{ secret: string }>(({ payload: { secret }}) => {
+	authenticate({ role: 'producer', secret });
+})
+
 export const initializeRealtimeProcess = createProcess('initialize-realtime', [ initializeRealtimeCommand ]);
 export const connectProcess = createProcess('connect', [ connectCommand, getStatusCommand ]);
 export const disconnectProcess = createProcess('disconnect', [ disconnectCommand ]);
 export const nextSlideProcess = createProcess('disconnect', [ nextSlideCommand ]);
 export const previousSlideProcess = createProcess('disconnect', [ previousSlideCommand ]);
 export const getStatusProcess = createProcess('getStatus', [getStatusCommand]);
+export const authenticateProcess = createProcess('authenticate', [ authenticateCommand ]);

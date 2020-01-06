@@ -3,7 +3,8 @@ import Store from '@dojo/framework/stores/Store';
 import { State } from '../interfaces';
 import { createCommandFactory, createProcess } from '@dojo/framework/stores/process';
 import { replace } from '@dojo/framework/stores/state/operations';
-import { initializeRealtimeProcess } from '../processes/realtime.process';
+import { initializeRealtimeProcess, connectProcess, authenticateProcess } from '../processes/realtime.process';
+import { loadSecretProcess } from '../processes/authenticate.process';
 
 const commandFactory = createCommandFactory<State>();
 
@@ -15,7 +16,15 @@ const initialStateCommand = commandFactory(({ path }) => {
 
 const initialStateProcess = createProcess('initial', [initialStateCommand]);
 
-export const store = createStoreMiddleware<State>((store: Store<State>) => {
-	initialStateProcess(store)({});
-	initializeRealtimeProcess(store)({ store });
+export const store = createStoreMiddleware<State>(async (store: Store<State>) => {
+	await initialStateProcess(store)({});
+	await loadSecretProcess(store)({});
+	await initializeRealtimeProcess(store)({ store });
+	await connectProcess(store)({});
+
+	const secret = store.get(store.path('auth', 'secret'));
+
+	if (secret) {
+		await authenticateProcess(store)({ secret });
+	}
 });
