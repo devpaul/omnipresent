@@ -1,8 +1,9 @@
-import { commandService, CommandMiddleware, Message } from "../realtime/command.service";
-import { SECRET } from "../config";
-import { Connection, ConnectionMethods } from "../realtime/realtime.upgrade";
-import { log } from "webserv/src/core/log";
-import { listRoles, userLeft, addAuthenticated, isAuthenticated } from "./omni.state";
+import { log } from 'webserv/src/core/log';
+
+import { SECRET } from '../config';
+import { CommandMiddleware, commandService, Message } from '../realtime/command.service';
+import { Connection } from '../realtime/realtime.upgrade';
+import { addAuthenticated, isAuthenticated, listRoles, userLeft } from './omni.state';
 
 export const enum Action {
 	Authenticate = 'authenticate',
@@ -12,13 +13,14 @@ export const enum Action {
 	PreviousSlide = 'previousSlide',
 	RoleConnected = 'roleConnected',
 	RoleLeft = 'roleLeft',
-	ShowImage = 'showImage',
+	ShowMedia = 'showMedia',
 	ShowLaser = 'showLaser',
 	SlideChanged = 'slideChanged'
 }
 
 export const enum Response {
 	Authenticated = 'authenticated',
+	NotAuthenticated = 'notAuthenticated',
 	Status = 'status'
 }
 
@@ -57,11 +59,19 @@ const echo: CommandMiddleware = (data, con, { getAll }) => {
 	}
 }
 
+const echoAll: CommandMiddleware = (data, con, { getAll }) => {
+	const message = JSON.stringify(data);
+	for (let connection of getAll()) {
+		connection.client.send(message);
+	}
+}
+
 const authenticatedEcho: CommandMiddleware = (data, con, methods) => {
 	if (isAuthenticated(con.id)) {
-		echo(data, con, methods);
+		echoAll(data, con, methods);
 	}
 	else {
+		con.client.send(JSON.stringify({ action: Response.NotAuthenticated, data }));
 		log.warn(`[OMNI] Unauthenticated user action "${data.action} by ${con.id}"`)
 	}
 }
@@ -102,7 +112,7 @@ export const omni = commandService({
 		{ action: Action.HideLaser, handler: authenticatedEcho },
 		{ action: Action.NextSlide, handler: authenticatedEcho },
 		{ action: Action.PreviousSlide, handler: authenticatedEcho },
-		{ action: Action.ShowImage, handler: authenticatedEcho },
+		{ action: Action.ShowMedia, handler: authenticatedEcho },
 		{ action: Action.ShowLaser, handler: authenticatedEcho },
 		{ action: Action.SlideChanged, handler: authenticatedEcho }
 	],

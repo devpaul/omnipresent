@@ -2,19 +2,22 @@ import { Message, send, MessageHandler, addMessageHandler } from "../../websocke
 
 export const enum Action {
 	Authenticate = 'authenticate',
+	GetScreen = 'getScreen',
 	GetStatus = 'getStatus',
 	HideLaser = 'hideLaser',
 	NextSlide = 'nextSlide',
 	PreviousSlide = 'previousSlide',
 	RoleConnected = 'roleConnected',
 	RoleLeft = 'roleLeft',
-	ShowImage = 'showImage',
 	ShowLaser = 'showLaser',
+	ShowMedia = 'showMedia',
 	SlideChanged = 'slideChanged'
 }
 
 export const enum Response {
 	Authenticated = 'authenticated',
+	NotAuthenticated = 'notAuthenticated',
+	Screen = 'screen',
 	Status = 'status'
 }
 

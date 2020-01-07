@@ -1,24 +1,40 @@
-import { createRequest, Action, createHandler } from "./api";
-
-export interface ShowImagePayload {
-	src: string;
-}
-
-export interface ShowSlidePayload {
-	deck: string;
-	slide: { h: number; v: number; };
-	src: string;
-}
+import { createRequest, Action, createHandler, Response } from "./api";
 
 export interface PointerPayload {
 	position: { x: number, y: number }
 }
 
-const showImage = createRequest<ShowImagePayload>(Action.ShowImage);
-const handleShowImage = createHandler<ShowImagePayload>(Action.ShowImage)
+export interface ScreenPayload {
+	media: Media;
+}
 
-const showLaser = createRequest<PointerPayload>(Action.ShowLaser);
-const handleShowLaser = createHandler<PointerPayload>(Action.ShowLaser);
+export interface SlideMedia {
+	type: 'slide';
+	deck: string;
+	slide: { h: number; v: number; };
+	src: string;
+}
 
-const hideLaser = createRequest(Action.HideLaser);
-const handleHideLaser = createRequest(Action.HideLaser);
+export interface ImageMedia {
+	type: 'image';
+	src: string;
+}
+
+export interface VideoMedia {
+	type: 'video',
+	src: string;
+}
+
+export type Media = SlideMedia | ImageMedia | VideoMedia;
+
+export const getScreen = createRequest(Action.GetScreen);
+export const handleScreen = createHandler<ScreenPayload>(Response.Screen);
+
+export const showMedia = createRequest<Media>(Action.ShowMedia);
+export const handleShowMedia = createHandler<Media>(Action.ShowMedia);
+
+export const showLaser = createRequest<PointerPayload>(Action.ShowLaser);
+export const handleShowLaser = createHandler<PointerPayload>(Action.ShowLaser);
+
+export const hideLaser = createRequest(Action.HideLaser);
+export const handleHideLaser = createRequest(Action.HideLaser);

@@ -3,10 +3,13 @@ import Store from '@dojo/framework/stores/Store';
 import { handleAuthenticated, handleAuthenticateError } from 'present-core/api/websocket/authenticate';
 import { handleRoleConnected, handleRoleLeft, handleStatus } from 'present-core/api/websocket/info';
 import { handleSlideChanged } from 'present-core/api/websocket/revealjs';
+import { handleShowMedia } from 'present-core/api/websocket/screen';
 
 import { State } from '../interfaces';
 import { setAuthenticatedProcess, setUnauthenticatedProcess } from '../processes/authenticate.process';
-import { captureSlideProcess, slideChangedProcess } from '../processes/slides.process';
+import { captureSlideProcess, slideChangedProcess, displaySlideProcess } from '../processes/slides.process';
+import { DECKNAME, IMAGETYPE, getSlideUrl } from '../config';
+import { setScreenMediaProcess, publishSlideToScreenProcess } from '../processes/screen.process';
 
 let store: Store<State>
 
@@ -20,6 +23,15 @@ export function initialize(s: Store<State>) {
 
 		if (captureSlides && isSharing) {
 			await captureSlideProcess(store)({});
+			await displaySlideProcess(store)({ deck: DECKNAME, h, v, type: IMAGETYPE });
+		}
+		else {
+			await publishSlideToScreenProcess(store)({
+				type: 'slide',
+				deck: DECKNAME,
+				slide: { h, v },
+				src: getSlideUrl(DECKNAME, h, v, IMAGETYPE)
+			 });
 		}
 	});
 
@@ -31,6 +43,11 @@ export function initialize(s: Store<State>) {
 			replace(store.path('stats', 'areSlidesConnected'), hasSlides),
 			replace(store.path('stats', 'connectionCount'), connectionCount)
 		])
+	});
+
+	handleShowMedia((media) => {
+		console.log('media', media)
+		setScreenMediaProcess(store)(media);
 	});
 
 	handleRoleConnected(({ role }) => {

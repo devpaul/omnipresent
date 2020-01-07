@@ -9,3 +9,4 @@ export interface AuthenticatePayload {
 export const authenticate = createRequest<AuthenticatePayload>(Action.Authenticate);
 export const handleAuthenticateError = createErrorHandler(Action.Authenticate);
 export const handleAuthenticated = createHandler(Response.Authenticated);
+export const handleNotAuthenticated = createHandler(Response.NotAuthenticated);

@@ -1,11 +1,18 @@
+import { ImageMedia, VideoMedia, SlideMedia } from 'present-core/api/websocket/screen';
+
 export interface State {
 	auth: Authentication;
 	request: Requests;
 	isConnected: boolean;
 	isSharing: boolean;
+	screen: Screen;
 	slide?: SlideIndex;
 	stats: ShowStats;
 	options: Options;
+}
+
+export interface Screen {
+	media: ImageMedia | VideoMedia | SlideMedia;
 }
 
 export interface Options {

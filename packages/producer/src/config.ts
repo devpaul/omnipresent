@@ -5,3 +5,4 @@ export function getSlideUrl(deck: string, h: number, v: number, type: string = '
 }
 
 export const DECKNAME = 'slide';
+export const IMAGETYPE = 'png';
