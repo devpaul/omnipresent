@@ -1,13 +1,12 @@
 import { replace } from '@dojo/framework/stores/state/operations';
 import Store from '@dojo/framework/stores/Store';
-import { uploadSlide } from 'present-core/api/upload';
 import { handleAuthenticated, handleAuthenticateError } from 'present-core/api/websocket/authenticate';
 import { handleRoleConnected, handleRoleLeft, handleStatus } from 'present-core/api/websocket/info';
 import { handleSlideChanged } from 'present-core/api/websocket/revealjs';
-import { getScreenshot } from 'present-core/webrtc/screen';
 
 import { State } from '../interfaces';
 import { setAuthenticatedProcess, setUnauthenticatedProcess } from '../processes/authenticate.process';
+import { captureSlideProcess, slideChangedProcess } from '../processes/slides.process';
 
 let store: Store<State>
 
@@ -15,20 +14,12 @@ export function initialize(s: Store<State>) {
 	store = s;
 
 	handleSlideChanged(async ({ h, v }) => {
-		store.apply([
-			replace(store.path('slide'), { h, v })
-		], true);
+		await slideChangedProcess(store)({ h, v });
+		const isSharing = store.get(store.path('isSharing'));
+		const captureSlides = store.get(store.path('options', 'captureSlides'));
 
-		if (store.get(store.path('isSharing'))) {
-			const dataUrl = await getScreenshot();
-			const result = await uploadSlide(dataUrl, {
-				deck: 'deck',
-				indexh: h,
-				indexv: v,
-				type: 'png'
-			});
-			// TODO announce to viewers to use the snapshot
-			console.log(result);
+		if (captureSlides && isSharing) {
+			await captureSlideProcess(store)({});
 		}
 	});
 

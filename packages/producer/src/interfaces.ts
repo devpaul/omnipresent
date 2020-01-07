@@ -5,6 +5,11 @@ export interface State {
 	isSharing: boolean;
 	slide?: SlideIndex;
 	stats: ShowStats;
+	options: Options;
+}
+
+export interface Options {
+	captureSlides: boolean;
 }
 
 export interface Authentication {

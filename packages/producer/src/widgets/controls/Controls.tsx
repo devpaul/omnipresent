@@ -3,12 +3,14 @@ import { create, tsx } from '@dojo/framework/core/vdom';
 import AuthenticationProvider from '../authentication/Authentication.provider';
 import Card from '../card/Card';
 import Control from '../control/Control';
+import Checkbox, { Mode } from '@dojo/widgets/checkbox'
 import * as css from './controls.m.css';
 
 export interface ControlsProperties {
 	isConnected: boolean;
 	isAuthenticated: boolean;
 	isSharing: boolean;
+	captureSlides: boolean;
 
 	onShare?: () => void;
 	onStopSharing?: () => void;
@@ -16,12 +18,13 @@ export interface ControlsProperties {
 	onDisconnect?: () => void;
 	onNextSlide?: () => void;
 	onPreviousSlide?: () => void;
+	onSetCaptureSlides?: (value: boolean) => void;
 }
 
 const factory = create().properties<ControlsProperties>();
 
 export default factory(function Controls({ properties }){
-	const { isAuthenticated, isConnected, isSharing, onConnect, onDisconnect, onStopSharing, onShare, onNextSlide, onPreviousSlide } = properties();
+	const { isAuthenticated, isConnected, isSharing, onConnect, onDisconnect, onStopSharing, onShare, onNextSlide, onPreviousSlide, onSetCaptureSlides, captureSlides } = properties();
 
 	return (
 		<div classes={css.root}>
@@ -39,6 +42,9 @@ export default factory(function Controls({ properties }){
 			{ isConnected && <Card title="Slides">
 				<Control title="Next Slide" show={isConnected} onClick={ () => { onNextSlide?.() }} />
 				<Control title="Previous Slide" show={isConnected} onClick={ () => { onPreviousSlide?.() }} />
+				<div classes={css.indent}>
+					<Checkbox checked={captureSlides} label="Capture Slides" mode={Mode.toggle} onChange={() => { onSetCaptureSlides?.(!captureSlides)}}/>
+				</div>
 			</Card> }
 		</div>
 	);
