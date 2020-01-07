@@ -1,6 +1,5 @@
 import { create, tsx } from '@dojo/framework/core/vdom';
 
-import { PreviewType } from '../../interfaces';
 import AuthenticationProvider from '../authentication/Authentication.provider';
 import Card from '../card/Card';
 import Control from '../control/Control';
@@ -10,7 +9,6 @@ export interface ControlsProperties {
 	isConnected: boolean;
 	isAuthenticated: boolean;
 	isSharing: boolean;
-	showPreview?: PreviewType | false;
 
 	onShare?: () => void;
 	onStopSharing?: () => void;
@@ -23,7 +21,7 @@ export interface ControlsProperties {
 const factory = create().properties<ControlsProperties>();
 
 export default factory(function Controls({ properties }){
-	const { isAuthenticated, showPreview, isConnected, isSharing, onConnect, onDisconnect, onStopSharing, onShare, onNextSlide, onPreviousSlide } = properties();
+	const { isAuthenticated, isConnected, isSharing, onConnect, onDisconnect, onStopSharing, onShare, onNextSlide, onPreviousSlide } = properties();
 
 	return (
 		<div classes={css.root}>
@@ -41,11 +39,6 @@ export default factory(function Controls({ properties }){
 			{ isConnected && <Card title="Slides">
 				<Control title="Next Slide" show={isConnected} onClick={ () => { onNextSlide?.() }} />
 				<Control title="Previous Slide" show={isConnected} onClick={ () => { onPreviousSlide?.() }} />
-			</Card> }
-			{ isSharing && <Card title="Preview">
-				<Control title="Hide Preview" show={!!showPreview} onClick={ () => { console.log('TODO') }} />
-				<Control title="Image Preview" show={showPreview !== 'image'} onClick={ () => { console.log('TODO') }} />
-				<Control title="Video Preview" show={showPreview !== 'video'} onClick={ () => { console.log('TODO') }} />
 			</Card> }
 		</div>
 	);

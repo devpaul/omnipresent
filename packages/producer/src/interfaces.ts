@@ -3,12 +3,9 @@ export interface State {
 	request: Requests;
 	isConnected: boolean;
 	isSharing: boolean;
-	showPreview: PreviewType | false;
 	slide?: SlideIndex;
 	stats: ShowStats;
 }
-
-export type PreviewType = 'image' | 'video';
 
 export interface Authentication {
 	secret?: string;
