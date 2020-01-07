@@ -1,9 +1,10 @@
 import { create, tsx } from '@dojo/framework/core/vdom';
+
 import { store } from '../../middleware/store';
-import Controls, { ControlsProperties } from './Controls';
-import { shareScreenProcess, stopSharingScreenProcess, snapshotProcess } from '../../processes/webrtc.process';
 import { connectProcess, disconnectProcess } from '../../processes/connection.process';
 import { nextSlideProcess, previousSlideProcess } from '../../processes/slides.process';
+import { shareScreenProcess, stopSharingScreenProcess } from '../../processes/webrtc.process';
+import Controls, { ControlsProperties } from './Controls';
 
 const factory = create({ store });
 
@@ -18,8 +19,7 @@ export default factory(function MenuProvider({ middleware: { store: { get, path,
 		onNextSlide: () => { executor(nextSlideProcess)({}) },
 		onPreviousSlide: () => { executor(previousSlideProcess)({}) },
 		onShare: () => { executor(shareScreenProcess)({}) },
-		onStopSharing: () => { executor(stopSharingScreenProcess)({}) },
-		onSnapshot: () => { executor(snapshotProcess)({}) }
+		onStopSharing: () => { executor(stopSharingScreenProcess)({}) }
 	};
 
 	return (

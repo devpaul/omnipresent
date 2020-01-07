@@ -16,7 +16,6 @@ export interface ControlsProperties {
 	onStopSharing?: () => void;
 	onConnect?: () => void;
 	onDisconnect?: () => void;
-	onSnapshot?: () => void;
 	onNextSlide?: () => void;
 	onPreviousSlide?: () => void;
 }
@@ -24,7 +23,7 @@ export interface ControlsProperties {
 const factory = create().properties<ControlsProperties>();
 
 export default factory(function Controls({ properties }){
-	const { isAuthenticated, showPreview, isConnected, isSharing, onConnect, onDisconnect, onStopSharing, onShare, onSnapshot, onNextSlide, onPreviousSlide } = properties();
+	const { isAuthenticated, showPreview, isConnected, isSharing, onConnect, onDisconnect, onStopSharing, onShare, onNextSlide, onPreviousSlide } = properties();
 
 	return (
 		<div classes={css.root}>
@@ -38,7 +37,6 @@ export default factory(function Controls({ properties }){
 			<Card title="Sharing">
 				<Control title="Share Screen" show={!isSharing} onClick={ () => { onShare?.() }} />
 				<Control title="Stop Sharing" show={isSharing} onClick={ () => { onStopSharing?.() }} />
-				<Control title="Take Snapshot" show={isSharing} onClick={ () => { onSnapshot?.() }} />
 			</Card>
 			{ isConnected && <Card title="Slides">
 				<Control title="Next Slide" show={isConnected} onClick={ () => { onNextSlide?.() }} />

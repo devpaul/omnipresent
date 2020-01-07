@@ -28,6 +28,7 @@ const snapshotCommand = commandFactory(async ({ get, path }) => {
 		name: 'image',
 		type: 'png'
 	});
+	// TODO announce new slide
 });
 
 export const shareScreenProcess = createProcess('share-screen', [shareScreenCommand]);
