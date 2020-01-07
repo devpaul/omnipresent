@@ -26,6 +26,6 @@
 	},
 	"include": [
 		"./src/**/*.ts",
-		"./tests/**/*.ts", "src/widgets/menu/Menu.tsx", "src/widgets/screen-preview/ScreenPreview.tsx"
+		"./tests/**/*.ts"
 	]
 }

@@ -38,7 +38,7 @@ export async function uploadImage(file: Blob | string, { name, type }: ImageMeta
 export async function uploadSlide(file: Blob | string, { deck, indexh, indexv, type}: DeckMetadata) {
 	const imageBlob = typeof file === 'string' ? await dataUrlToBlob(file) : file;
 	var fd = new FormData();
-	const filename = `${deck}-${indexh}-${indexv}.${type}`;
+	const filename = getSlideName(deck, indexh, indexv, type);
 	fd.append('upl', imageBlob, filename);
 	const result = await fetch('/upload/', {
 		method: 'POST',
@@ -48,4 +48,8 @@ export async function uploadSlide(file: Blob | string, { deck, indexh, indexv, t
 		filename,
 		result
 	};
+}
+
+export function getSlideName(deck: string, h: number, v: number, type: string = 'png') {
+	return `${deck}-${h}-${v}.${type}`;
 }

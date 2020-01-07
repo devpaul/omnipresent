@@ -5,6 +5,7 @@ import { nextSlide, previousSlide } from 'present-core/api/websocket/revealjs';
 import { getScreenshot } from 'present-core/webrtc/screen';
 
 import { SlideIndex, State } from '../interfaces';
+import { DECKNAME } from '../config';
 
 const commandFactory = createCommandFactory<State>();
 
@@ -41,7 +42,7 @@ const captureSlideCommand = commandFactory(async ({ get, path }) => {
 
 	const dataUrl = await getScreenshot();
 	await uploadSlide(dataUrl, {
-		deck: 'image',
+		deck: DECKNAME,
 		indexh: slide.h,
 		indexv: slide.v,
 		type: 'png'
