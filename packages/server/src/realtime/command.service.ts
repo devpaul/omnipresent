@@ -18,8 +18,29 @@ export interface Message {
 	[ key: string ]: any;
 }
 
+interface ErrorPayload {
+	message: string;
+}
+
 function isMessage(value: any): value is Message {
 	return value && typeof value === 'object' && typeof value.action === 'string';
+}
+
+export function announce<T extends object>(connections: Iterable<Connection>, message: Message & T) {
+	for (let con of connections) {
+		sendResponse<T>(con, message);
+	}
+}
+
+export function sendError<T extends ErrorPayload>(con: Connection, message: Message & T) {
+	con.client.send(JSON.stringify({
+		...message,
+		action: `${message.action}-error`
+	}));
+}
+
+export function sendResponse<T extends object>(con: Connection, message: Message & T) {
+	con.client.send(JSON.stringify(message));
 }
 
 export function commandService({ commands, defaultHandler, ... rest }: CommandServiceProperties): Service {

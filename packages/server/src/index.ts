@@ -1,7 +1,7 @@
 import { bootConfig } from 'webserv/src/config';
 import { setLoader } from 'webserv/src/config/services';
 import { App } from 'webserv/src/core/app';
-import { omni } from './services/omni.service';
+import { omni } from './services/omni/omni.service';
 
 const app = new App();
 process.env.NODE_ENV?.toUpperCase() === 'PROD' ? startProduction(app) : startDevelopment(app);

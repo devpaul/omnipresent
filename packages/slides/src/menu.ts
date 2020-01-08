@@ -1,6 +1,6 @@
 import { getMenuContainer, getMenuCloseButton } from "./elements";
 import { connect as connectSocket, disconnect as disconnectService } from '/present-core/websocket/connection';
-import { handleNextSlide, handlePreviousSlide } from '/present-core/api/websocket/revealjs';
+import { handleNextSlide, handlePreviousSlide, slideChanged } from '/present-core/api/websocket/revealjs';
 import { handleAuthenticated, handleAuthenticateError, authenticate } from "/present-core/api/websocket/authenticate";
 
 export function openMenu() {
@@ -39,6 +39,8 @@ export async function connect() {
 
 	handleAuthenticated(() => {
 		document.body.classList.add('authenticated');
+		const index = Reveal.getIndices();
+		slideChanged(index);
 	});
 
 	handleAuthenticateError(() => {
