@@ -7,7 +7,7 @@ import { handleShowMedia } from 'present-core/api/websocket/screen';
 
 import { State } from '../interfaces';
 import { setAuthenticatedProcess, setUnauthenticatedProcess } from '../processes/authenticate.process';
-import { captureSlideProcess, slideChangedProcess, displaySlideProcess } from '../processes/slides.process';
+import { captureSlideProcess, slideChangedProcess } from '../processes/slides.process';
 import { DECKNAME, IMAGETYPE, getSlideUrl } from '../config';
 import { setScreenMediaProcess, publishSlideToScreenProcess } from '../processes/screen.process';
 
@@ -20,12 +20,12 @@ export function initialize(s: Store<State>) {
 		await slideChangedProcess(store)({ h, v });
 		const isSharing = store.get(store.path('isSharing'));
 		const captureSlides = store.get(store.path('options', 'captureSlides'));
+		const syncToSlides = store.get(store.path('options', 'syncToSlides'));
 
 		if (captureSlides && isSharing) {
 			await captureSlideProcess(store)({});
-			await displaySlideProcess(store)({ deck: DECKNAME, h, v, type: IMAGETYPE });
 		}
-		else {
+		if (syncToSlides) {
 			await publishSlideToScreenProcess(store)({
 				type: 'slide',
 				deck: DECKNAME,

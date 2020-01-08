@@ -11,6 +11,7 @@ export interface ControlsProperties {
 	isAuthenticated: boolean;
 	isSharing: boolean;
 	captureSlides: boolean;
+	syncToSlides: boolean;
 
 	onShare?: () => void;
 	onStopSharing?: () => void;
@@ -19,12 +20,14 @@ export interface ControlsProperties {
 	onNextSlide?: () => void;
 	onPreviousSlide?: () => void;
 	onSetCaptureSlides?: (value: boolean) => void;
+	onSetSyncToSlides?: (value: boolean) => void;
 }
 
 const factory = create().properties<ControlsProperties>();
 
 export default factory(function Controls({ properties }){
-	const { isAuthenticated, isConnected, isSharing, onConnect, onDisconnect, onStopSharing, onShare, onNextSlide, onPreviousSlide, onSetCaptureSlides, captureSlides } = properties();
+	const { isAuthenticated, isConnected, isSharing, onConnect, onDisconnect, onStopSharing, onShare, onNextSlide, onPreviousSlide, onSetCaptureSlides, captureSlides,
+		syncToSlides, onSetSyncToSlides } = properties();
 
 	return (
 		<div classes={css.root}>
@@ -39,12 +42,17 @@ export default factory(function Controls({ properties }){
 				<Control title="Share Screen" show={!isSharing} onClick={ () => { onShare?.() }} />
 				<Control title="Stop Sharing" show={isSharing} onClick={ () => { onStopSharing?.() }} />
 			</Card>
+			<Card title="Screen">
+				<div classes={css.indent}>
+					<Checkbox checked={syncToSlides} label="Sync Viewers to Slides" mode={Mode.toggle} onChange={() => { onSetSyncToSlides?.(!syncToSlides)}}/>
+				</div>
+				<div classes={css.indent}>
+					<Checkbox disabled={!isSharing} checked={captureSlides} label="Capture Slides" mode={Mode.toggle} onChange={() => { onSetCaptureSlides?.(!captureSlides)}}/>
+				</div>
+			</Card>
 			{ isConnected && <Card title="Slides">
 				<Control title="Next Slide" show={isConnected} onClick={ () => { onNextSlide?.() }} />
 				<Control title="Previous Slide" show={isConnected} onClick={ () => { onPreviousSlide?.() }} />
-				<div classes={css.indent}>
-					<Checkbox checked={captureSlides} label="Capture Slides" mode={Mode.toggle} onChange={() => { onSetCaptureSlides?.(!captureSlides)}}/>
-				</div>
 			</Card> }
 		</div>
 	);

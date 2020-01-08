@@ -12,8 +12,9 @@ const commandFactory = createCommandFactory<State>();
 
 const initialStateCommand = commandFactory(({ path }) => {
 	return [
-		replace(path('stats', 'connectionCount'), 0)
-	]
+		replace(path('stats', 'connectionCount'), 0),
+		replace(path('options', 'syncToSlides'), true)
+	];
 });
 
 const initialStateProcess = createProcess('initial', [initialStateCommand]);

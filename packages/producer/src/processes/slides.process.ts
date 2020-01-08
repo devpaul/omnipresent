@@ -2,11 +2,10 @@ import { createCommandFactory, createProcess } from '@dojo/framework/stores/proc
 import { replace } from '@dojo/framework/stores/state/operations';
 import { uploadSlide } from 'present-core/api/upload';
 import { nextSlide, previousSlide } from 'present-core/api/websocket/revealjs';
-import { showMedia } from 'present-core/api/websocket/screen';
 import { getScreenshot } from 'present-core/webrtc/screen';
 
+import { DECKNAME } from '../config';
 import { SlideIndex, State } from '../interfaces';
-import { DECKNAME, getSlideUrl } from '../config';
 
 const commandFactory = createCommandFactory<State>();
 
@@ -21,6 +20,12 @@ const previousSlideCommand = commandFactory(() => {
 const slideChangedCommand = commandFactory<SlideIndex>(({ get, path, payload }) => {
 	return [
 		replace(path('slide'), payload)
+	];
+});
+
+const setSyncToSlidesCommand = commandFactory(({ path, payload: { value }}) => {
+	return [
+		replace(path('options', 'syncToSlides'), value)
 	];
 });
 
@@ -50,18 +55,9 @@ const captureSlideCommand = commandFactory(async ({ get, path }) => {
 	});
 });
 
-const displaySlideCommand = commandFactory(({ payload: {deck, h, v, type }}) => {
-	showMedia({
-		type: 'slide',
-		deck,
-		slide: { h, v },
-		src: getSlideUrl(deck, h, v, type)
-	});
-});
-
 export const nextSlideProcess = createProcess('next-slide', [ nextSlideCommand ]);
 export const previousSlideProcess = createProcess('previous-slide', [ previousSlideCommand ]);
 export const setCaptureSlidesProcess = createProcess('set-capture', [ setCaptureSlidesCommand ]);
+export const setSyncToSlidesProcess = createProcess('set-capture', [ setSyncToSlidesCommand ]);
 export const slideChangedProcess = createProcess('slide-changed', [ slideChangedCommand ]);
 export const captureSlideProcess = createProcess('capture-slide', [ captureSlideCommand ]);
-export const displaySlideProcess = createProcess('display-slide', [ displaySlideCommand ]);
