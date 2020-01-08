@@ -35,13 +35,16 @@ export function initialize(s: Store<State>) {
 		}
 	});
 
-	handleStatus(({ roles, connectionCount }) => {
+	handleStatus(({ roles, connectionCount, screen, slide }) => {
+		const { path } = store;
 		const hasPresenter = roles.some(role => role === 'presenter');
 		const hasSlides = roles.some(role => role === 'slides')
 		store.apply([
-			replace(store.path('stats', 'isPresenterConnected'), hasPresenter),
-			replace(store.path('stats', 'areSlidesConnected'), hasSlides),
-			replace(store.path('stats', 'connectionCount'), connectionCount)
+			replace(path('stats', 'isPresenterConnected'), hasPresenter),
+			replace(path('stats', 'areSlidesConnected'), hasSlides),
+			replace(path('stats', 'connectionCount'), connectionCount),
+			replace(path('screen'), screen),
+			replace(path('slide'), slide)
 		])
 	});
 

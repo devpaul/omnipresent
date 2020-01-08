@@ -1,8 +1,14 @@
 import { Action, createHandler, createRequest, Response } from './api';
+import { Media } from './screen';
+import { SlideChangedPayload } from './revealjs';
 
 export interface StatusPayload {
 	roles: string[];
 	connectionCount: number;
+	screen: {
+		media: Media
+	},
+	slide: SlideChangedPayload
 }
 
 export interface RolePayload {
