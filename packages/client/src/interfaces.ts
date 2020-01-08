@@ -1,4 +1,7 @@
+import { Media } from 'present-core/api/websocket/screen';
+
 export interface State {
+	auth: Authentication;
 	/** If the user is the presenter */
 	isPresenter: boolean;
 	/** If the user is connected to websockets */
@@ -11,6 +14,11 @@ export interface State {
 
 	/** Describes the presentation */
 	space: Space;
+}
+
+export interface Authentication {
+	secret?: string;
+	isAuthenticated: boolean;
 }
 
 export interface Presentation {
@@ -31,25 +39,7 @@ export interface Sky {
 
 export interface Screen {
 	position: Position;
-	source?: MediaSource;
-}
-
-export type MediaSource = ImageSource | VideoSource | DeckSource;
-
-export interface ImageSource {
-	type: 'image';
-	url: string;
-}
-
-export interface VideoSource {
-	type: 'video';
-	url: string;
-}
-
-export interface DeckSource {
-	type: 'deck';
-	currentSlide: number;
-	slides: string[];
+	source?: Media;
 }
 
 export interface Position {

@@ -3,7 +3,8 @@ import Store from '@dojo/framework/stores/Store';
 import { State } from '../interfaces';
 import { createCommandFactory, createProcess } from '@dojo/framework/stores/process';
 import { add } from '@dojo/framework/stores/state/operations';
-import { connectProcess } from '../process/realtime.process';
+import { initialize as initializeOmni } from '../externals/omnisockets';
+import { initialize as initializeConnection, getConnection } from '../externals/connection';
 
 const commandFactory = createCommandFactory<State>();
 
@@ -14,10 +15,6 @@ const initialStateCommand = commandFactory(({ path }) => {
 				color: '#191a47'
 			},
 			screen: {
-				source: {
-					type: 'image',
-					url: '/samples/slide.png'
-				},
 				position: {
 					x: 0,
 					y: 2,
@@ -30,9 +27,17 @@ const initialStateCommand = commandFactory(({ path }) => {
 
 const initialStateProcess = createProcess('initial', [initialStateCommand]);
 
-export const store = createStoreMiddleware<State>((store: Store<State>) => {
+export const store = createStoreMiddleware<State>(async (store: Store<State>) => {
 	initialStateProcess(store)({});
-	// TODO check for live presentation
-	connectProcess(store)({});
+	// TODO load secret from localstorage
+	initializeOmni(store);
+	initializeConnection(store);
+	await getConnection();
+
+	const secret = store.get(store.path('auth', 'secret'));
+
+	if (secret) {
+		// TODO authenticate
+	}
 	(window as any).store = store;
 });

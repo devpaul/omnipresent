@@ -1,16 +1,20 @@
 import { create, tsx } from '@dojo/framework/core/vdom';
+
+import { store } from '../../../middleware/store';
 import { positionToString } from '../../../utils/position';
-import { Position, MediaSource } from '../../../interfaces';
 
 export interface ScreenProperties {
-	position: Position;
-	source?: MediaSource;
 }
 
-const factory = create().properties<ScreenProperties>();
+const factory = create({ store }).properties<ScreenProperties>();
 
-export const Screen = factory(function index({ properties }){
-	const { position, source } = properties();
+export const Screen = factory(function index({ properties, middleware: { store: { get, path } } }){
+	const source = get(path('space', 'screen', 'source'));
+	const position = get(path('space', 'screen', 'position'));
+
+	if (!position || !source) {
+		return null;
+	}
 	const positionStr = positionToString(position);
 	const shared = {
 		position: positionStr,
@@ -18,12 +22,12 @@ export const Screen = factory(function index({ properties }){
 	}
 
 	switch (source?.type) {
-		case 'deck':
-			return (<a-plane {...shared} material={`src: url(${source.slides[source.currentSlide]});npot: true`}></a-plane>);
+		case 'slide':
+			return (<a-plane {...shared} material={`src: url(${source.src});npot: true`}></a-plane>);
 		case 'image':
-			return (<a-plane {...shared} material={`src: url(${source.url});npot: true`}></a-plane>);
+			return (<a-plane {...shared} material={`src: url(${source.src});npot: true`}></a-plane>);
 		case 'video':
-			return (<a-plane {...shared} material={`src: url(${source.url})`}></a-plane>);
+			return (<a-plane {...shared} material={`src: url(${source.src})`}></a-plane>);
 		default:
 			return (<a-plane {...shared} color="#000000"></a-plane>);
 	}

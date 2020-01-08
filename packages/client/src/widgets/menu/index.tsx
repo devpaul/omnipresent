@@ -5,7 +5,8 @@ import Hamburger from '../hamburger';
 import { openMenuProcess, closeMenuProcess, viewSlidesProcess } from '../../process/menu.process';
 
 import * as css from './menu.m.css';
-import { disconnectProcess, connectProcess } from '../../process/realtime.process';
+import { disconnect } from '../../externals/connection';
+import { connect } from 'present-core/websocket/connection';
 
 const factory = create({ store });
 
@@ -15,8 +16,6 @@ export default factory(function Menu({ middleware: { store: { get, path, executo
 	const isMenuOpen = get(path('openMenu'));
 	const openMenu = executor(openMenuProcess);
 	const closeMenu = executor(closeMenuProcess);
-	const disconnect = executor(disconnectProcess);
-	const connect = executor(connectProcess);
 	const viewSlides = executor(viewSlidesProcess);
 
 	return <virtual>
@@ -30,8 +29,8 @@ export default factory(function Menu({ middleware: { store: { get, path, executo
 				<span>{isConnected ? 'connected' : 'disconnected' }</span>
 			</div>
 			<ul>
-				{ isConnected && <li><button onclick={ () => { disconnect({}) }} classes={css.linkButton}>Disconnect</button></li> }
-				{ !isConnected && <li><button onclick={ () => { connect({}) }} classes={css.linkButton}>Attend Presentation</button></li> }
+				{ isConnected && <li><button onclick={ () => { disconnect() }} classes={css.linkButton}>Disconnect</button></li> }
+				{ !isConnected && <li><button onclick={ () => { connect() }} classes={css.linkButton}>Attend Presentation</button></li> }
 				{ isConnected && !isPresenter && <li><button classes={css.linkButton}>Become Presenter</button></li> }
 				<li><button onclick={ () => { viewSlides({}); }} classes={css.linkButton}>View Slides</button></li>
 			</ul>
