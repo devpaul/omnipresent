@@ -1,4 +1,4 @@
-import { once } from '/present-core/util/handlers';
+import { once } from 'present-core/util/handlers';
 
 export type TransitionCallback = (node: Element, event: SlideEvent) => void;
 

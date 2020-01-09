@@ -1,9 +1,8 @@
 /// <reference types="reveal" />
-import { openMenu, closeMenu, connect, sendAuthentication } from './menu';
+import { getAuthButton, getAuthInput, getConnectButton, getMenuCloseButton } from './elements';
+import { closeMenu, connect, openMenu, sendAuthentication } from './menu';
 import { addSlideTransitionListener } from './slides';
-import { getMenuCloseButton, getConnectButton, getAuthButton, getAuthInput } from './elements';
-import { slideChanged } from '/present-core/api/websocket/revealjs'
-import { authenticate } from '/present-core/api/websocket/authenticate'
+import { slideChanged } from 'present-core/api/websocket/revealjs';
 
 declare const hljs: typeof import('highlight.js');
 

@@ -1,7 +1,7 @@
 import { getMenuContainer, getMenuCloseButton } from "./elements";
-import { connect as connectSocket, disconnect as disconnectService } from '/present-core/websocket/connection';
-import { handleNextSlide, handlePreviousSlide, slideChanged } from '/present-core/api/websocket/revealjs';
-import { handleAuthenticated, handleAuthenticateError, authenticate } from "/present-core/api/websocket/authenticate";
+import { connect as connectSocket, disconnect as disconnectService } from 'present-core/websocket/connection';
+import { handleNextSlide, handlePreviousSlide, slideChanged } from 'present-core/api/websocket/revealjs';
+import { handleAuthenticated, handleAuthenticateError, authenticate } from "present-core/api/websocket/authenticate";
 
 export function openMenu() {
 	getMenuContainer()?.classList.add('opened');

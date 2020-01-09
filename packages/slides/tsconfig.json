@@ -5,13 +5,16 @@
 		"baseUrl": ".",
 		"rootDir": "src",
 		"outDir": "./dist",
-		"module": "ESNext",
-		"composite": true,
-		"paths": {
-			"/present-core/*": [ "../core/dist/esm/*" ]
-		}
+		"sourceMap": true,
+		"target": "es2015",
+		"module": "CommonJS",
+		"resolveJsonModule": true,
+		"allowSyntheticDefaultImports": true
 	},
 	"include": [
 		"./src/**/*.ts"
+	],
+	"exclude": [
+		"webpack.config.ts"
 	]
 }

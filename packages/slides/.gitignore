@@ -2,3 +2,4 @@
 _dist
 /node_modules
 resources/*.css
+output

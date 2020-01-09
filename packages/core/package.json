@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "run-s copy:umd build:esm build:umd",
+    "build": "run-s copy:cjs build:esm build:cjs",
     "build:esm": "tsc -p ./tsconfig-esm.json",
-    "build:umd": "tsc",
+    "build:cjs": "tsc",
     "clean": "shx rm -rf dist",
-    "copy:umd": "shx mkdir -p ./dist/umd && shx cp package.json ./dist/umd",
+    "copy:cjs": "shx mkdir -p ./dist/cjs && shx cp package.json ./dist/cjs",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "run-p watch:umd watch:esm",
-    "watch:umd": "npm run copy:umd && tsc -w",
+    "watch": "run-p watch:cjs watch:esm",
+    "watch:cjs": "npm run copy:cjs && tsc -w",
     "watch:esm": "tsc -w -p ./tsconfig-esm.json"
   },
   "author": "Paul Shannon",
@@ -20,5 +20,6 @@
     "npm-run-all": "^4.1.5",
     "shx": "^0.3.2",
     "typescript": "^3.7.4"
-  }
+  },
+  "dependencies": {}
 }

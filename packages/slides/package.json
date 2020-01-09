@@ -8,6 +8,7 @@
     "build": "run-p build:css build:ts",
     "build:css": "stylus resources/main.styl -o resources/main.css",
     "build:ts": "tsc",
+    "build:wp": "cross-env TS_NODE_PROJECT=\"tsconfig.json\" webpack --mode=development",
     "clean": "shx rm -rf _dist && shx rm resources/*.css",
     "publish": "npm run build && ts-node ./support/scripts/publish",
     "watch": "run-p watch:css watch:ts",
@@ -17,15 +18,22 @@
   "devDependencies": {
     "@types/cpy": "^5.1.0",
     "@types/highlight.js": "^9.12.3",
+    "@types/node": "^13.1.5",
     "@types/reveal": "^3.3.33",
     "@types/stylus": "^0.48.30",
+    "@types/webpack": "^4.41.2",
     "cpy": "^7.0.1",
+    "cross-env": "^6.0.3",
     "gh-pages": "^1.2.0",
     "npm-run-all": "^4.1.5",
     "shx": "^0.3.2",
     "stylus": "^0.54.5",
+    "ts-loader": "^6.2.1",
     "ts-node": "^7.0.1",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.4",
+    "umd-compat-loader": "^2.1.2",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
   },
   "dependencies": {
     "reveal.js": "^3.7.0"
