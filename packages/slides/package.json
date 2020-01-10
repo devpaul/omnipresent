@@ -5,15 +5,14 @@
   "author": "Paul Shannon",
   "license": "MPL-2.0",
   "scripts": {
-    "build": "run-p build:css build:ts",
+    "build": "run-p build:css build:wp",
     "build:css": "stylus resources/main.styl -o resources/main.css",
-    "build:ts": "tsc",
     "build:wp": "cross-env TS_NODE_PROJECT=\"tsconfig.json\" webpack --mode=development",
     "clean": "shx rm -rf _dist && shx rm resources/*.css",
     "publish": "npm run build && ts-node ./support/scripts/publish",
-    "watch": "run-p watch:css watch:ts",
+    "watch": "run-p watch:css watch:wp",
     "watch:css": "stylus -w resources/main.styl -o resources/main.css",
-    "watch:ts": "tsc -w"
+    "watch:wp": "cross-env TS_NODE_PROJECT=\"tsconfig.json\" webpack --mode=development -w"
   },
   "devDependencies": {
     "@types/cpy": "^5.1.0",

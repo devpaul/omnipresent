@@ -1,6 +1,7 @@
 export const defaultTimeout = 1000;
 
 export function getWebSocketServer() {
-	const url = new URL((window as any)?.location);
-	return `ws://${url.host}`;
+	const location: Location = (window as any).location;
+	const protocol = location.protocol === 'http:' ? 'ws:' : 'wss:';
+	return `${protocol}//${location.host}`;
 }
