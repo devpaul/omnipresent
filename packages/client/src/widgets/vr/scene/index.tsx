@@ -1,6 +1,7 @@
 import { create, tsx } from '@dojo/framework/core/vdom';
 import { store } from '../../../middleware/store';
 import { Screen } from '../screen';
+import Controls from '../controls/Controls';
 
 const factory = create({ store }).properties();
 
@@ -14,8 +15,7 @@ export default factory(function Scene({ middleware: { store: { get, path }}}){
 			</a-assets>
 			<a-sky color={color}></a-sky>
 			<Screen/>
-			<a-tracked-controls hand="left"></a-tracked-controls>
-			<a-tracked-controls hand="right"></a-tracked-controls>
+			<Controls />
 		</a-scene>
 	);
 });
