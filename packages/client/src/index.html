@@ -5,7 +5,21 @@
 	<title>present</title>
 	<meta name="theme-color" content="#222127">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
 </head>
 <body>
+	<div id="dojo"></div>
+	<a-scene>
+		<a-assets>
+			<video id="vrscreen" playsinline></video>
+		</a-assets>
+		<a-sky key="sky" color="#191a47"></a-sky>
+		<a-entity key="camera" camera look-controls position="0 1.6 0">
+			<a-text key="text" id="txt" value="Hello" position="0 0 -1" scale="0.4 0.4 0.4" align="center" color="#000000"></a-text>
+		</a-entity>
+		<a-plane position="0 2 -1.10276" geometry="width: 1.8" color="#000000"></a-plane>
+		<a-entity id="leftControl" laser-controls="hand: left"></a-entity>
+		<a-entity id="rightControl" laser-controls="hand: right"></a-entity>
+	</a-scene>
 </body>
 </html>

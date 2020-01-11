@@ -1,8 +1,8 @@
 import theme from '@dojo/framework/core/middleware/theme';
 import { create, tsx } from '@dojo/framework/core/vdom';
-import Menu from './widgets/menu';
-import VrScene from './widgets/vr/scene';
 import dojo from '@dojo/themes/dojo';
+
+import Menu from './widgets/menu';
 
 const factory = create({ theme });
 
@@ -13,6 +13,5 @@ export default factory(function App({ middleware: { theme } }) {
 
 	return <virtual>
 		<Menu></Menu>
-		<VrScene></VrScene>
 	</virtual>
 });
