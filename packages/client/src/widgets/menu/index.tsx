@@ -37,7 +37,7 @@ export default factory(function Menu({ middleware: { store: { get, path, executo
 				<div classes={css.indentedContainer}>
 					<Status value={isConnected} trueLabel="Connected" falseLabel="Disconnected" />
 					<Status value={isAuthenticated} trueLabel="Authenticated" falseLabel="Not Authenticated" />
-					{ isAuthenticated && <Status value={isPresenter} trueLabel="Presenter" falseLabel="Viewer" /> }
+					{ isAuthenticated && <Status value={isPresenter} trueLabel="Presenting" falseLabel="Not Presenting" /> }
 				</div>
 			</Card>
 			<Card title="Connection">

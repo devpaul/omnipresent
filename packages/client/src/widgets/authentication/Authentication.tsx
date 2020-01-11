@@ -17,6 +17,6 @@ export default factory(function Authentication({ middleware: { store: { get, pat
 
 	return (<div>
 		<TextInput value={secret} onChange={(value) => { setSecret({ secret: String(value) }) }} placeholder="Secret" type="password" />
-		<Control title="Authenticate" show={true} onClick={() => { authenticate({ secret }) }} />
+		<Control title="Authenticate" show={true} onClick={() => { authenticate({}) }} />
 	</div>);
 });

@@ -7,7 +7,7 @@ import { initialize as initializeAframe } from '../external/aframe';
 import { initialize as initializeConnection } from '../external/connection';
 import { initialize as initializeOmni } from '../external/omnisockets';
 import { State } from '../interfaces';
-import { authenticateProcess, loadSecretProcess } from '../processes/authenticate.process';
+import { attemptAuthenticationProcess, loadSecretProcess } from '../processes/authenticate.process';
 import { connectProcess } from '../processes/connection.process';
 
 const commandFactory = createCommandFactory<State>();
@@ -44,12 +44,7 @@ export const store = createStoreMiddleware<State>(async (store: Store<State>) =>
 	initializeConnection(store);
 	await initializeAframe(store);
 	await connectProcess(store)({})
-
-	const secret = store.get(store.path('auth', 'secret'));
-
-	if (secret) {
-		await authenticateProcess(store)({ secret });
-	}
+	await attemptAuthenticationProcess(store)({});
 
 	debug(store);
 });
