@@ -3,7 +3,7 @@ import { replace } from '@dojo/framework/stores/state/operations';
 import { getStatus } from 'present-core/api/websocket/info';
 import { disconnect } from 'present-core/websocket/connection';
 
-import { createConnection } from '../externals/connection';
+import { createConnection } from '../external/connection';
 import { State } from '../interfaces';
 
 const commandFactory = createCommandFactory<State>();

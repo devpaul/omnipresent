@@ -3,9 +3,9 @@ import { createCommandFactory, createProcess } from '@dojo/framework/stores/proc
 import { add, replace } from '@dojo/framework/stores/state/operations';
 import Store from '@dojo/framework/stores/Store';
 
-import { initialize as initializeAframe } from '../externals/aframe';
-import { initialize as initializeConnection } from '../externals/connection';
-import { initialize as initializeOmni } from '../externals/omnisockets';
+import { initialize as initializeAframe } from '../external/aframe';
+import { initialize as initializeConnection } from '../external/connection';
+import { initialize as initializeOmni } from '../external/omnisockets';
 import { State } from '../interfaces';
 import { authenticateProcess, loadSecretProcess } from '../process/authenticate.process';
 import { connectProcess } from '../process/connection.process';
