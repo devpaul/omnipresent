@@ -3,9 +3,9 @@ import { handleStatus } from 'present-core/api/websocket/info';
 import { handleShowMedia } from 'present-core/api/websocket/screen';
 
 import { State } from '../interfaces';
-import { setSourceProcess } from '../process/screen.process';
+import { setSourceProcess } from '../processes/screen.process';
 import { handleAuthenticateError, handleAuthenticated, handleNotAuthenticated } from 'present-core/api/websocket/authenticate';
-import { setUnauthenticatedProcess, setAuthenticatedProcess } from '../process/authenticate.process';
+import { setUnauthenticatedProcess, setAuthenticatedProcess } from '../processes/authenticate.process';
 import { snackbar } from './aframe';
 
 let store: Store<State>

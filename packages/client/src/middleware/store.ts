@@ -7,8 +7,8 @@ import { initialize as initializeAframe } from '../external/aframe';
 import { initialize as initializeConnection } from '../external/connection';
 import { initialize as initializeOmni } from '../external/omnisockets';
 import { State } from '../interfaces';
-import { authenticateProcess, loadSecretProcess } from '../process/authenticate.process';
-import { connectProcess } from '../process/connection.process';
+import { authenticateProcess, loadSecretProcess } from '../processes/authenticate.process';
+import { connectProcess } from '../processes/connection.process';
 
 const commandFactory = createCommandFactory<State>();
 

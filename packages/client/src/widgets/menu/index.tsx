@@ -2,12 +2,12 @@ import { create, tsx } from '@dojo/framework/core/vdom';
 import { store } from '../../middleware/store';
 import SlidePane from '@dojo/widgets/slide-pane';
 import Hamburger from '../hamburger';
-import { openMenuProcess, closeMenuProcess } from '../../process/menu.process';
+import { openMenuProcess, closeMenuProcess } from '../../processes/menu.process';
 import { Card } from '../card/Card';
 import Status from '../status/Status';
 import Control from '../control/Control';
 import Authentication from '../authentication/Authentication';
-import { connectProcess, disconnectProcess } from '../../process/connection.process';
+import { connectProcess, disconnectProcess } from '../../processes/connection.process';
 
 import * as css from './menu.m.css';
 

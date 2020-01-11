@@ -2,7 +2,7 @@ import { create, tsx } from '@dojo/framework/core/vdom';
 import TextInput from '@dojo/widgets/text-input';
 
 import { store } from '../../middleware/store';
-import { authenticateProcess, setSecretProcess } from '../../process/authenticate.process';
+import { authenticateProcess, setSecretProcess } from '../../processes/authenticate.process';
 import Control from '../control/Control';
 
 export interface AuthenticationProperties {
