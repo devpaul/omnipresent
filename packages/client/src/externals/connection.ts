@@ -1,7 +1,7 @@
-import { State } from '../interfaces';
 import Store from '@dojo/framework/stores/Store';
 import { connect } from 'present-core/websocket/connection';
-import { isDisconnectedProcess, isConnectedProcess } from '../process/connection.process';
+
+import { State } from '../interfaces';
 
 let store: Store<State>;
 let connection: WebSocket | undefined;
@@ -10,14 +10,11 @@ export function initialize(s: Store<State>) {
 	store = s;
 }
 
-export async function getConnection() {
+export async function createConnection(onClose: (store: Store<State>) => void) {
 	disconnect();
-
 	connection = await connect();
-	connection.addEventListener('close', () => {
-		isDisconnectedProcess(store)({});
-	});
-	await isConnectedProcess(store)({});
+	connection.addEventListener('close', () => { onClose(store) });
+	return connection;
 }
 
 export function disconnect() {

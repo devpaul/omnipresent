@@ -1,12 +1,14 @@
 import createStoreMiddleware from '@dojo/framework/core/middleware/store';
-import Store from '@dojo/framework/stores/Store';
-import { State } from '../interfaces';
 import { createCommandFactory, createProcess } from '@dojo/framework/stores/process';
 import { add, replace } from '@dojo/framework/stores/state/operations';
-import { initialize as initializeOmni } from '../externals/omnisockets';
-import { initialize as initializeConnection, getConnection } from '../externals/connection';
+import Store from '@dojo/framework/stores/Store';
+
 import { initialize as initializeAframe } from '../externals/aframe';
-import { authenticateProcess } from '../process/authenticate.process';
+import { initialize as initializeConnection } from '../externals/connection';
+import { initialize as initializeOmni } from '../externals/omnisockets';
+import { State } from '../interfaces';
+import { authenticateProcess, loadSecretProcess } from '../process/authenticate.process';
+import { connectProcess } from '../process/connection.process';
 
 const commandFactory = createCommandFactory<State>();
 
@@ -37,20 +39,16 @@ function debug(store: Store<State>) {
 
 export const store = createStoreMiddleware<State>(async (store: Store<State>) => {
 	initialStateProcess(store)({});
-	// TODO load secret from localstorage
+	await loadSecretProcess(store)({});
 	initializeOmni(store);
 	initializeConnection(store);
 	await initializeAframe(store);
-	await getConnection();
+	await connectProcess(store)({})
 
 	const secret = store.get(store.path('auth', 'secret'));
 
 	if (secret) {
 		await authenticateProcess(store)({ secret });
-	}
-	else {
-		// TODO REMOVE
-		await authenticateProcess(store)({ secret: 'secret' });
 	}
 
 	debug(store);

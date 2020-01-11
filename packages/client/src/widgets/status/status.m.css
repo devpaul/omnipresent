@@ -1,0 +1,19 @@
+.root {
+
+}
+
+.dot {
+	height: 0.9em;
+	width: 0.9em;
+	border-radius: 50%;
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.green {
+	background-color: green;
+}
+
+.red {
+	background-color: red;
+}

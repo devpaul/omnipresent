@@ -40,11 +40,11 @@ const setAuthenticatedCommand = commandFactory(({ path }) => {
 
 const setUnauthenticatedCommand = commandFactory(({ path }) => {
 	return [
-		replace(path('auth', 'isAuthenticated'), true)
+		replace(path('auth', 'isAuthenticated'), false)
 	];
 });
 
-const authenticateCommand = commandFactory<{ secret: string }>(({ payload: { secret }}) => {
+const authenticateCommand = commandFactory<{ secret: string }>(({ get, path, payload: { secret } }) => {
 	authenticate({ role: 'presenter', secret });
 })
 

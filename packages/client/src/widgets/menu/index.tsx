@@ -2,43 +2,59 @@ import { create, tsx } from '@dojo/framework/core/vdom';
 import { store } from '../../middleware/store';
 import SlidePane from '@dojo/widgets/slide-pane';
 import Hamburger from '../hamburger';
-import { openMenuProcess, closeMenuProcess, viewSlidesProcess } from '../../process/menu.process';
+import { openMenuProcess, closeMenuProcess } from '../../process/menu.process';
+import { Card } from '../card/Card';
+import Status from '../status/Status';
+import Control from '../control/Control';
+import Authentication from '../authentication/Authentication';
+import { connectProcess, disconnectProcess } from '../../process/connection.process';
 
 import * as css from './menu.m.css';
-import { disconnect } from '../../externals/connection';
-import { connect } from 'present-core/websocket/connection';
 
 const factory = create({ store });
 
 export default factory(function Menu({ middleware: { store: { get, path, executor } }}){
+	const isMenuOpen = get(path('openMenu'));
 	const isConnected = get(path('isConnected'));
 	const isPresenter = get(path('isPresenter'));
-	const isMenuOpen = get(path('openMenu'));
 	const isAuthenticated = get(path('auth', 'isAuthenticated'));
 	const openMenu = executor(openMenuProcess);
 	const closeMenu = executor(closeMenuProcess);
-	const viewSlides = executor(viewSlidesProcess);
+	const connect = executor(connectProcess);
+	const disconnect = executor(disconnectProcess);
 
 	return <virtual>
 		{ !isMenuOpen && <Hamburger onClick={() => { openMenu({}) }}></Hamburger> }
-		<SlidePane open={isMenuOpen}>
+		<SlidePane open={isMenuOpen} classes={{
+			'@dojo/widgets/slide-pane': {
+				'content': [css.pane]
+			}
+		}}>
 			<div classes={css.closeContainer}>
-				<button id="close-menu" classes={css.linkButton} onclick={() => { closeMenu({}) }}>X</button>
+				<button id="close-menu" classes={css.closeButton} onclick={() => { closeMenu({}) }}>X</button>
 			</div>
-			<div>
-				<span classes={[css.dot, isConnected ? css.green : css.red]}></span>
-				<span>{isConnected ? 'connected' : 'disconnected' }</span>
-			</div>
-			<div>
-				<span classes={[css.dot, isAuthenticated ? css.green : css.red]}></span>
-				<span>{isAuthenticated ? 'authenticated' : 'not authenticated' }</span>
-			</div>
-			<ul>
-				{ isConnected && <li><button onclick={ () => { disconnect() }} classes={css.linkButton}>Disconnect</button></li> }
-				{ !isConnected && <li><button onclick={ () => { connect() }} classes={css.linkButton}>Attend Presentation</button></li> }
-				{ isConnected && !isPresenter && <li><button classes={css.linkButton}>Become Presenter</button></li> }
-				<li><button onclick={ () => { viewSlides({}); }} classes={css.linkButton}>View Slides</button></li>
-			</ul>
+			<Card title="Connection">
+				<div classes={css.indentedContainer}>
+					<Status value={isConnected} trueLabel="Connected" falseLabel="Disconnected" />
+					<Status value={isAuthenticated} trueLabel="Authenticated" falseLabel="Not Authenticated" />
+					{ isAuthenticated && <Status value={isPresenter} trueLabel="Presenter" falseLabel="Viewer" /> }
+				</div>
+			</Card>
+			<Card title="Connection">
+				<Control show={isConnected} title="Disconnect" onClick={() => { disconnect({}) }}/>
+				<Control show={!isConnected} title="Connect" onClick={() => { connect({}) }}/>
+			</Card>
+			<Card title="External Links">
+				<div classes={css.indentedContainer}>
+					<a href="/slides/">View Slides</a>
+				</div>
+			</Card>
+			{ isAuthenticated && <Card title="Presenter">
+				<Control show={!isPresenter} title="Start Presenting" onClick={() => { }}/>
+			</Card> }
+			{ !isAuthenticated && <Card title="Authentication">
+				<Authentication />
+			</Card> }
 		</SlidePane>
 	</virtual>
 });

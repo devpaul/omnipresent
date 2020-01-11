@@ -2,27 +2,21 @@
 
 }
 
-.dot {
-	height: 0.9em;
-	width: 0.9em;
-	border-radius: 50%;
-	display: inline-block;
-	margin-right: 1em;
+.pane {
+	padding: 0;
 }
 
-.green {
-	background-color: green;
-}
-
-.red {
-	background-color: red;
-}
-
-.linkButton {
+.closeButton {
 	background: none;
 	border: none;
+	font-size: 25px;
 }
 
 .closeContainer {
 	text-align: right;
+	padding: 10px;
+}
+
+.indentedContainer {
+	padding: 3px 10px 10px 10px;
 }
