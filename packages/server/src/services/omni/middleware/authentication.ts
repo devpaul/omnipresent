@@ -24,16 +24,17 @@ export function authenticatedWrapper(middleware: CommandMiddleware): CommandMidd
 }
 
 export const authenticateHandler: CommandMiddleware<AuthenticationMessage> = (message, con, { getAll }) => {
+	const { role } = message;
+	const { id } = con;
 	if (message.secret === SECRET) {
-		const { role } = message;
-		const { id } = con;
 		addAuthenticated(id, role);
 
 		sendResponse(con, { action: Response.Authenticated, role });
-		log.info(`[OMNI] Authenticated User "${con.id} as ${role}"`);
+		log.info(`[OMNI] Authenticated User "${id} as ${role}"`);
 		announce(getAll(), { action: Action.RoleConnected, role });
 	}
 	else {
+		log.warn(`[OMNI] Connection ${id} failed to authenticate as ${role}`);
 		sendError(con, { action: Action.Authenticate, message: 'bad secret' });
 	}
 };

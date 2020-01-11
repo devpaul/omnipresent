@@ -1,6 +1,6 @@
 import { replace } from '@dojo/framework/stores/state/operations';
 import Store from '@dojo/framework/stores/Store';
-import { handleAuthenticated, handleAuthenticateError } from 'present-core/api/websocket/authenticate';
+import { handleAuthenticated, handleAuthenticateError, handleNotAuthenticated } from 'present-core/api/websocket/authenticate';
 import { handleRoleConnected, handleRoleLeft, handleStatus } from 'present-core/api/websocket/info';
 import { handleSlideChanged } from 'present-core/api/websocket/revealjs';
 import { handleShowMedia } from 'present-core/api/websocket/screen';
@@ -49,7 +49,6 @@ export function initialize(s: Store<State>) {
 	});
 
 	handleShowMedia((media) => {
-		console.log('media', media)
 		setScreenMediaProcess(store)(media);
 	});
 
@@ -76,6 +75,12 @@ export function initialize(s: Store<State>) {
 	});
 
 	handleAuthenticateError(() => {
-		setUnauthenticatedProcess(store)({})
+		setUnauthenticatedProcess(store)({});
+		console.warn('Failed to authenticate');
 	});
+
+	handleNotAuthenticated(() => {
+		setUnauthenticatedProcess(store)({});
+		console.warn('Became unauthenticated');
+	})
 }

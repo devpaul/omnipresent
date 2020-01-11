@@ -1,10 +1,10 @@
 import { create, tsx } from '@dojo/framework/core/vdom';
 
-import AuthenticationProvider from '../authentication/Authentication.provider';
 import Card from '../card/Card';
 import Control from '../control/Control';
 import Checkbox, { Mode } from '@dojo/widgets/checkbox'
 import * as css from './controls.m.css';
+import Authentication from '../authentication/Authentication';
 
 export interface ControlsProperties {
 	isConnected: boolean;
@@ -36,7 +36,7 @@ export default factory(function Controls({ properties }){
 				<Control title="Connect" show={!isConnected} onClick={ () => { onConnect?.() }} />
 			</Card>
 			{ !isAuthenticated && <Card title="Authentication">
-				<AuthenticationProvider />
+				<Authentication />
 			</Card>}
 			<Card title="Sharing">
 				<Control title="Share Screen" show={!isSharing} onClick={ () => { onShare?.() }} />

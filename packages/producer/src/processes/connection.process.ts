@@ -10,7 +10,8 @@ const commandFactory = createCommandFactory<State>();
 
 const setDisconnectedCommand = commandFactory(async ({ path }) => {
 	return [
-		replace(path('isConnected'), false)
+		replace(path('isConnected'), false),
+		replace(path('auth', 'isAuthenticated'), false)
 	];
 });
 
