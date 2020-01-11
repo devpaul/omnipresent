@@ -14,6 +14,7 @@ export default factory(function Menu({ middleware: { store: { get, path, executo
 	const isConnected = get(path('isConnected'));
 	const isPresenter = get(path('isPresenter'));
 	const isMenuOpen = get(path('openMenu'));
+	const isAuthenticated = get(path('auth', 'isAuthenticated'));
 	const openMenu = executor(openMenuProcess);
 	const closeMenu = executor(closeMenuProcess);
 	const viewSlides = executor(viewSlidesProcess);
@@ -27,6 +28,10 @@ export default factory(function Menu({ middleware: { store: { get, path, executo
 			<div>
 				<span classes={[css.dot, isConnected ? css.green : css.red]}></span>
 				<span>{isConnected ? 'connected' : 'disconnected' }</span>
+			</div>
+			<div>
+				<span classes={[css.dot, isAuthenticated ? css.green : css.red]}></span>
+				<span>{isAuthenticated ? 'authenticated' : 'not authenticated' }</span>
 			</div>
 			<ul>
 				{ isConnected && <li><button onclick={ () => { disconnect() }} classes={css.linkButton}>Disconnect</button></li> }

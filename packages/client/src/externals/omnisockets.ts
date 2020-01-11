@@ -4,6 +4,9 @@ import { handleShowMedia } from 'present-core/api/websocket/screen';
 
 import { State } from '../interfaces';
 import { setSourceProcess } from '../process/screen.process';
+import { handleAuthenticateError, handleAuthenticated, handleNotAuthenticated } from 'present-core/api/websocket/authenticate';
+import { setUnauthenticatedProcess, setAuthenticatedProcess } from '../process/authenticate.process';
+import { snackbar } from './aframe';
 
 let store: Store<State>
 
@@ -16,5 +19,19 @@ export function initialize(s: Store<State>) {
 
 	handleStatus(({ screen }) => {
 		setSourceProcess(store)(screen.media);
+	});
+
+	handleAuthenticateError(() => {
+		setUnauthenticatedProcess(store)({});
+	});
+
+	handleAuthenticated(() => {
+		setAuthenticatedProcess(store)({});
+		snackbar('Authenticated!');
+	});
+
+	handleNotAuthenticated(() => {
+		setUnauthenticatedProcess(store)({});
+		snackbar('Not Authenticated');
 	});
 }

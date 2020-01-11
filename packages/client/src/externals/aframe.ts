@@ -1,9 +1,11 @@
 import Store from '@dojo/framework/stores/Store';
 import { State } from '../interfaces';
 import { Media } from 'present-core/api/websocket/screen';
+import { nextSlide, previousSlide } from 'present-core/api/websocket/revealjs';
 
 export function initialize(store: Store<State>) {
 	const { get, path } = store;
+	// connect the store to aframe to sync state
 	store.onChange(path('space', 'sky'), () => {
 		setSkyColor(get(path('space', 'sky', 'color')));
 	});
@@ -12,13 +14,41 @@ export function initialize(store: Store<State>) {
 		setScreenMedia(get(path('space', 'screen', 'source')));
 	});
 
+	// Attach event handlers to Aframe
+	initializeHandlers();
+
+	// Wait for Aframe to load before continuing
 	const scene = document.querySelector('a-scene');
 
-	return scene ? new Promise((resolve) => {
+	return scene ? ((scene as any).hasLoaded ? Promise.resolve() : new Promise((resolve) => {
 		scene.addEventListener('loaded', resolve);
-	}) : Promise.reject();
+	})) : Promise.reject();
 
 	// TODO load the tracked initial values in to the store
+}
+
+function initializeHandlers() {
+	// const leftHand = document.getElementById('leftControl');
+	const rightHand = document.getElementById('rightControl');
+
+	rightHand?.addEventListener('abuttondown', () => {
+		nextSlide({});
+	});
+	rightHand?.addEventListener('bbuttondown', () => {
+		previousSlide({});
+	});
+	// TODO track pose when connected && is presenter
+}
+
+export function snackbar(message: string, timeout: number = 3000) {
+	const textNode = document.querySelector('a-text');
+	textNode?.setAttribute('value', message);
+	setTimeout(() => {
+		const currentValue = textNode?.getAttribute('value');
+		if (currentValue === message) {
+			textNode?.removeAttribute('value');
+		}
+	}, timeout);
 }
 
 function setSkyColor(color: string) {

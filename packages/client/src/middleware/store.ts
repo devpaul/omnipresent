@@ -6,6 +6,7 @@ import { add, replace } from '@dojo/framework/stores/state/operations';
 import { initialize as initializeOmni } from '../externals/omnisockets';
 import { initialize as initializeConnection, getConnection } from '../externals/connection';
 import { initialize as initializeAframe } from '../externals/aframe';
+import { authenticateProcess } from '../process/authenticate.process';
 
 const commandFactory = createCommandFactory<State>();
 
@@ -45,7 +46,11 @@ export const store = createStoreMiddleware<State>(async (store: Store<State>) =>
 	const secret = store.get(store.path('auth', 'secret'));
 
 	if (secret) {
-		// TODO authenticate
+		await authenticateProcess(store)({ secret });
+	}
+	else {
+		// TODO REMOVE
+		await authenticateProcess(store)({ secret: 'secret' });
 	}
 
 	debug(store);
