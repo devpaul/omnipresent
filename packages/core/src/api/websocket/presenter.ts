@@ -1,27 +1,13 @@
-/**
- * Stops showing pose data
- */
-export function stopPresenting(socket: WebSocket) {
-	// TODO implement
+import { createRequest, Action, createHandler } from "./api";
+
+export interface Pose {
+	pos: { x: number, y: number, z: number };
+	rot: { x: number, y: number, z: number };
 }
 
-/**
- * Indicates that the presenter should be removed from the scene
- */
-export function handleStopPresenting(socket: WebSocket) {
-	// TODO implement
+export interface CharacterPose {
+	[ key: string ]: Pose;
 }
 
-/**
- * Describes the pose of the presenter
- */
-export function updatePose(socket: WebSocket) {
-	// TODO implement
-}
-
-/**
- * Update the presenter in the scene
- */
-export function handleUpdatePose(socket: WebSocket) {
-	// TODO implement
-}
+export const sharePose = createRequest<CharacterPose>(Action.Pose);
+export const handlePose = createHandler<CharacterPose>(Action.Pose);

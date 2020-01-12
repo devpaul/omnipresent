@@ -16,6 +16,7 @@ export const omni = commandService({
 		{ action: Action.GetStatus, handler: getStatus },
 		{ action: Action.HideLaser, handler: authenticatedEcho },
 		{ action: Action.NextSlide, handler: authenticatedEcho },
+		{ action: Action.Pose, handler: authenticatedEcho },
 		{ action: Action.PreviousSlide, handler: authenticatedEcho },
 		{ action: Action.ShowMedia, handler: showMedia },
 		{ action: Action.ShowLaser, handler: authenticatedEcho },
@@ -32,6 +33,5 @@ export const omni = commandService({
 				});
 			}
 		}
-
 	}
 });

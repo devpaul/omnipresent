@@ -2,6 +2,9 @@ import Store from '@dojo/framework/stores/Store';
 import { State } from '../interfaces';
 import { Media } from 'present-core/api/websocket/screen';
 import { nextSlide, previousSlide } from 'present-core/api/websocket/revealjs';
+import { enterVrProcess, exitVrProcess } from '../processes/vr.process';
+import { startSharingPose, stopSharingPose } from './aframe/pose';
+import { snackbar } from './aframe/snackbar';
 
 export function initialize(store: Store<State>) {
 	const { get, path } = store;
@@ -14,8 +17,32 @@ export function initialize(store: Store<State>) {
 		setScreenMedia(get(path('space', 'screen', 'source')));
 	});
 
+	store.onChange(path('isPresenter'), () => {
+		const isPresenter = get(path('isPresenter'));
+		const isInVr = get(path('isInVr'));
+
+		if (isPresenter && isInVr) {
+			startSharingPose();
+		}
+		else {
+			stopSharingPose();
+		}
+	});
+
+	store.onChange(path('isInVr'), () => {
+		const isPresenter = get(path('isPresenter'));
+		const isInVr = get(path('isInVr'));
+
+		if (isPresenter && isInVr) {
+			startSharingPose();
+		}
+		else {
+			stopSharingPose();
+		}
+	});
+
 	// Attach event handlers to Aframe
-	initializeHandlers();
+	initializeHandlers(store);
 
 	// Wait for Aframe to load before continuing
 	const scene = document.querySelector('a-scene');
@@ -27,9 +54,10 @@ export function initialize(store: Store<State>) {
 	// TODO load the tracked initial values in to the store
 }
 
-function initializeHandlers() {
+function initializeHandlers(store: Store<State>) {
 	// const leftHand = document.getElementById('leftControl');
 	const rightHand = document.getElementById('rightControl');
+	const scene = document.querySelector('a-scene');
 
 	rightHand?.addEventListener('abuttondown', () => {
 		nextSlide({});
@@ -37,18 +65,13 @@ function initializeHandlers() {
 	rightHand?.addEventListener('bbuttondown', () => {
 		previousSlide({});
 	});
-	// TODO track pose when connected && is presenter
-}
-
-export function snackbar(message: string, timeout: number = 3000) {
-	const textNode = document.querySelector('a-text');
-	textNode?.setAttribute('value', message);
-	setTimeout(() => {
-		const currentValue = textNode?.getAttribute('value');
-		if (currentValue === message) {
-			textNode?.removeAttribute('value');
-		}
-	}, timeout);
+	scene?.addEventListener('enter-vr', () => {
+		enterVrProcess(store)({});
+		snackbar('Welcome');
+	});
+	scene?.addEventListener('exit-vr', () => {
+		exitVrProcess(store)({});
+	});
 }
 
 function setSkyColor(color: string) {

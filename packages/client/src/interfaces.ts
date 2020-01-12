@@ -1,4 +1,5 @@
 import { Media } from 'present-core/api/websocket/screen';
+import { CharacterPose } from 'present-core/api/websocket/presenter';
 
 export interface State {
 	auth: Authentication;
@@ -6,6 +7,8 @@ export interface State {
 	isPresenter: boolean;
 	/** If the user is connected to websockets */
 	isConnected: boolean;
+	/** If the user is in VR */
+	isInVr: boolean;
 	/** If the menu should be displayed */
 	openMenu: boolean;
 
@@ -31,6 +34,7 @@ export interface Presentation {
 export interface Space {
 	sky: Sky;
 	screen?: Screen;
+	presenter?: CharacterPose;
 }
 
 export interface Sky {

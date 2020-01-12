@@ -1,14 +1,15 @@
 import { create, tsx } from '@dojo/framework/core/vdom';
-import { store } from '../../middleware/store';
 import SlidePane from '@dojo/widgets/slide-pane';
-import Hamburger from '../hamburger';
-import { openMenuProcess, closeMenuProcess } from '../../processes/menu.process';
-import { Card } from '../card/Card';
-import Status from '../status/Status';
-import Control from '../control/Control';
-import Authentication from '../authentication/Authentication';
-import { connectProcess, disconnectProcess } from '../../processes/connection.process';
 
+import { store } from '../../middleware/store';
+import { connectProcess, disconnectProcess } from '../../processes/connection.process';
+import { closeMenuProcess, openMenuProcess } from '../../processes/menu.process';
+import { startPresentingProcess } from '../../processes/vr.process';
+import Authentication from '../authentication/Authentication';
+import { Card } from '../card/Card';
+import Control from '../control/Control';
+import Hamburger from '../hamburger';
+import Status from '../status/Status';
 import * as css from './menu.m.css';
 
 const factory = create({ store });
@@ -22,6 +23,7 @@ export default factory(function Menu({ middleware: { store: { get, path, executo
 	const closeMenu = executor(closeMenuProcess);
 	const connect = executor(connectProcess);
 	const disconnect = executor(disconnectProcess);
+	const presenting = executor(startPresentingProcess);
 
 	return <virtual>
 		{ !isMenuOpen && <Hamburger onClick={() => { openMenu({}) }}></Hamburger> }
@@ -50,7 +52,8 @@ export default factory(function Menu({ middleware: { store: { get, path, executo
 				</div>
 			</Card>
 			{ isAuthenticated && <Card title="Presenter">
-				<Control show={!isPresenter} title="Start Presenting" onClick={() => { }}/>
+				<Control show={!isPresenter} title="Start Presenting" onClick={() => { presenting({ value: true }) }}/>
+				<Control show={!!isPresenter} title="Stop Presenting" onClick={() => { presenting({ value: false }) }}/>
 			</Card> }
 			{ !isAuthenticated && <Card title="Authentication">
 				<Authentication />

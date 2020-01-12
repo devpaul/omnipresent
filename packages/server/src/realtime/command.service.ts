@@ -6,7 +6,7 @@ export interface CommandServiceProperties extends Omit<RealtimeUpgradeProperties
 	defaultHandler?: CommandMiddleware;
 }
 
-export type CommandMiddleware<T extends Message = Message> = (data: T, con: Connection, methods: ConnectionMethods) => void;
+export type CommandMiddleware<T extends Message = Message> = (data: T, con: Connection, methods: ConnectionMethods) => void | Promise<void>;
 
 export interface Command {
 	action: string;
