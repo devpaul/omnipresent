@@ -1,10 +1,6 @@
 {
 	"services": [
 		{
-			"name": "log",
-			"level": "debug"
-		},
-		{
 			"name": "omnipresent"
 		},
 		{
@@ -21,12 +17,10 @@
 			"showDirectoryContents": true,
 			"paths": {
 				"/producer/*": "./producer/output/dist",
-				"/present-core/*": "./core/dist/esm",
-				"/samples/*": "./server/samples",
+				"/core/*": "./core/dist/esm",
 				"/files/*": "./server/uploads",
 				"/client/*": "./client/output/dist",
 				"/slides/*": "./slides",
-				"/present/*": "./present/dist",
 				"*": "./client/output/dist"
 			}
 		}

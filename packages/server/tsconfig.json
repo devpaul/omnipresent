@@ -1,6 +1,18 @@
 {
-	"extends": "../tsconfig-base.json",
+	"version": "3.7",
 	"compilerOptions": {
-		"module": "umd"
+		"module": "umd",
+		"target": "es6",
+		"baseUrl": ".",
+		"downlevelIteration": true,
+		"moduleResolution": "node",
+		"strict": true,
+		"sourceMap": true,
+		"lib": [
+			"dom",
+			"es2015",
+			"es2017.object",
+			"esnext.asynciterable"
+		]
 	}
 }

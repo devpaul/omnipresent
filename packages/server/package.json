@@ -5,10 +5,8 @@
   "main": "index.js",
   "scripts": {
     "remote": "ngrok http 8888",
-    "serve": "NODE_ENV=PROD ts-node ./src",
-    "serve:dev": "ts-node ./src",
-    "start": "run-p serve remote",
-    "start:dev": "run-p serve:dev remote"
+    "dev": "ts-node ./src",
+    "start": "NODE_ENV=PROD ts-node ./src"
   },
   "author": "Paul Shannon",
   "license": "MPL-2.0",

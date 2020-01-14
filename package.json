@@ -3,12 +3,18 @@
   "version": "1.0.0",
   "description": "Omnipresent presentations",
   "scripts": {
+    "build": "run-s build:core build:client build:producer build:slides",
+    "build:core": "npm --prefix ./packages/core run build",
+    "build:client": "npm --prefix ./packages/client run build",
+    "build:producer": "npm --prefix ./packages/producer run build",
+    "build:slides": "npm --prefix ./packages/slides run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Paul Shannon",
   "license": "MPL-2.0",
   "dependencies": {},
   "devDependencies": {
+    "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "typescript": "^3.7.2"
   },
