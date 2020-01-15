@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "Omnipresent presentations",
   "scripts": {
-    "build": "run-s build:core build:client build:producer build:slides",
+    "build:apps": "run-s build:client build:producer build:slides",
     "build:core": "npm --prefix ./packages/core run build",
     "build:client": "npm --prefix ./packages/client run build",
     "build:producer": "npm --prefix ./packages/producer run build",
     "build:slides": "npm --prefix ./packages/slides run build",
+    "install:apps": "npm --prefix ./packages/core install && npm --prefix ./packages/client install && npm --prefix ./packages/producer install && npm --prefix ./packages/server install && npm --prefix ./packages/slides install",
+    "install:core": "npm --prefix ./packages/core install",
+    "start": "npm --prefix ./packages/server dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Paul Shannon",

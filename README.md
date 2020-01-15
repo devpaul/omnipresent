@@ -22,10 +22,24 @@ Build the image
 
 `docker build -t "omni-img" .`
 
-Run the image
+Run the image (dev)
 
-`docker run -p :8888:3000 --name omni omni-img`
+`docker run --rm -p 8888:8888 --name omni omni-img`
+
+Run the image (prod)
+
+`docker run -d --restart always --name omni -p 8888:8888 omni-img`
 
 Debug the image
 
 `docker exec -it omni /bin/bash`
+
+Deploy Checklist
+
+* npm install
+* core: npm install
+* core: npm run build
+* apps: npm install
+* apps: npm run build
+* Docker: Build the image
+* Docker: Run the image (production)

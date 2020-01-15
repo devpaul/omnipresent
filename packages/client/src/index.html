@@ -11,13 +11,14 @@
 	<div id="dojo"></div>
 	<a-scene>
 		<a-assets>
+			<img id="offair-img" src="./assets/off-air.jpg" />
 			<video id="vrscreen" playsinline></video>
 		</a-assets>
 		<a-sky color="#191a47"></a-sky>
 		<a-entity camera look-controls position="0 1.6 0">
 			<a-text id="txt" value="" position="0 0 -1" scale="0.4 0.4 0.4" align="center" color="#FFF"></a-text>
 		</a-entity>
-		<a-plane position="0 2 -1.10276" geometry="width: 1.8" color="#000000"></a-plane>
+		<a-plane position="0 2 -1.10276" geometry="width: 1.8" material="src: #offair-img;npot: true"></a-plane>
 		<a-entity id="leftControl" laser-controls="hand: left"></a-entity>
 		<a-entity id="rightControl" laser-controls="hand: right"></a-entity>
 		<a-sphere id="leftPresenter" scale="0.2 0.2 0.2" color="red"></a-sphere>
