@@ -5,6 +5,7 @@ import { nextSlide, previousSlide } from 'present-core/api/websocket/revealjs';
 import { enterVrProcess, exitVrProcess } from '../processes/vr.process';
 import { startSharingPose, stopSharingPose } from './aframe/pose';
 import { snackbar } from './aframe/snackbar';
+import { setPresenterSpace, setViewerSpace } from './aframe/space';
 
 export function initialize(store: Store<State>) {
 	const { get, path } = store;
@@ -21,10 +22,14 @@ export function initialize(store: Store<State>) {
 		const isPresenter = get(path('isPresenter'));
 		const isInVr = get(path('isInVr'));
 
-		if (isPresenter && isInVr) {
-			startSharingPose();
+		if (isPresenter) {
+			setPresenterSpace();
+			if (isInVr) {
+				startSharingPose();
+			}
 		}
 		else {
+			setViewerSpace();
 			stopSharingPose();
 		}
 	});

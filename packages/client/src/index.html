@@ -15,14 +15,19 @@
 			<video id="vrscreen" playsinline></video>
 		</a-assets>
 		<a-sky color="#191a47"></a-sky>
-		<a-entity camera look-controls position="0 1.6 0">
-			<a-text id="txt" value="" position="0 0 -1" scale="0.4 0.4 0.4" align="center" color="#FFF"></a-text>
+
+		<a-entity id="rig">
+			<a-entity wasd-controls camera look-controls position="0 1.6 8">
+				<a-text id="txt" value="" position="0 0 -1" scale="0.4 0.4 0.4" align="center" color="#FFF"></a-text>
+			</a-entity>
 		</a-entity>
-		<a-plane position="0 2 -1.10276" geometry="width: 1.8" material="src: #offair-img;npot: true"></a-plane>
+
+		<a-plane position="0 2 -2" geometry="width: 16; height: 9" material="src: #offair-img;npot: true"></a-plane>
+
 		<a-entity id="leftControl" laser-controls="hand: left"></a-entity>
 		<a-entity id="rightControl" laser-controls="hand: right"></a-entity>
-		<a-sphere id="leftPresenter" scale="0.2 0.2 0.2" color="red"></a-sphere>
-		<a-sphere id="rightPresenter" scale="0.2 0.2 0.2" color="green"></a-sphere>
+		<a-entity id="left" gltf-model="https://cdn.aframe.io/controllers/oculus/oculus-touch-controller-left.gltf"></a-entity>
+		<a-entity id="right" gltf-model="https://cdn.aframe.io/controllers/oculus/oculus-touch-controller-right.gltf"></a-entity>
 	</a-scene>
 </body>
 </html>

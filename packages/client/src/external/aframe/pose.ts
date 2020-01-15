@@ -57,11 +57,15 @@ function setPose(obj3d: Object3D, { pos, rot }: Pose) {
 
 export function changePose(pose: CharacterPose) {
 	if (pose.left) {
-		const left = document.getElementById('leftPresenter') as Entity;
+		const left = document.getElementById('left') as Entity;
 		setPose(left.object3D, pose.left);
 	}
 	if (pose.right) {
-		const right = document.getElementById('rightPresenter') as Entity;
+		const right = document.getElementById('right') as Entity;
 		setPose(right.object3D, pose.right);
+	}
+	if (pose.head) {
+		const head = document.getElementById('head') as Entity;
+		setPose(head.object3D, pose.head);
 	}
 }
