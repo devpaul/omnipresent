@@ -16,13 +16,18 @@
 		</a-assets>
 		<a-sky color="#191a47"></a-sky>
 
-		<a-entity id="rig">
-			<a-entity wasd-controls camera look-controls position="0 1.6 8">
+		<a-entity id="rig" position="0 1.6 8">
+			<a-entity wasd-controls camera look-controls>
 				<a-text id="txt" value="" position="0 0 -1" scale="0.4 0.4 0.4" align="center" color="#FFF"></a-text>
 			</a-entity>
 		</a-entity>
 
-		<a-plane position="0 2 -2" geometry="width: 16; height: 9" material="src: #offair-img;npot: true"></a-plane>
+		<a-plane id="screen" position="0 2 -2" geometry="width: 16; height: 9" material="src: #offair-img;npot: true"></a-plane>
+
+		<a-entity id="present-help" visible="false">
+			<a-plane id="presentScreen" position="0 2 10" rotation="0 180 0" geometry="width: 16; height: 9" material="src: #offair-img;npot: true"></a-plane>
+			<a-text id="presenttxt" value="hello" position="0 4 4" rotation="0 180 0" align="center" color="#FFF"></a-text>
+		</a-entity>
 
 		<a-entity id="leftControl" laser-controls="hand: left"></a-entity>
 		<a-entity id="rightControl" laser-controls="hand: right"></a-entity>

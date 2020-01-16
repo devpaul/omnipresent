@@ -15,7 +15,9 @@ export function initialize(store: Store<State>) {
 	});
 
 	store.onChange(path('space', 'screen', 'source'), () => {
-		setScreenMedia(get(path('space', 'screen', 'source')));
+		const media = get(path('space', 'screen', 'source'));
+		setScreenMedia('#screen', media);
+		setScreenMedia('#presentScreen', media);
 	});
 
 	store.onChange(path('isPresenter'), () => {
@@ -84,8 +86,8 @@ function setSkyColor(color: string) {
 	sky?.setAttribute('color', color);
 }
 
-function setScreenMedia(media?: Media) {
-	const screen = document.querySelector('a-plane');
+function setScreenMedia(selector: string, media?: Media) {
+	const screen = document.querySelector(selector);
 	if (!screen) {
 		return;
 	}
