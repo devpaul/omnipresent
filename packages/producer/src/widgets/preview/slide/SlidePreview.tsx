@@ -2,8 +2,8 @@ import { create, tsx } from '@dojo/framework/core/vdom';
 
 import { store } from '../../../middleware/store';
 import * as css from './slidePreview.m.css';
-import { SlideIndex } from '../../../interfaces';
 import { getSlideUrl, DECKNAME } from '../../../config';
+import { SlideIndex } from 'present-core/api/websocket/revealjs';
 
 export interface SlidePreviewProperties {
 	slide: SlideIndex;
@@ -18,7 +18,7 @@ export default factory(function SlidePreview({ properties }){
 		return null;
 	}
 
-	const file = getSlideUrl(DECKNAME, slide.h, slide.v);
+	const file = getSlideUrl(slide, DECKNAME);
 
 	return (
 		<div>

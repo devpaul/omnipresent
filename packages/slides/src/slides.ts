@@ -26,3 +26,19 @@ Reveal.addEventListener('slidechanged', async (event) => {
 		callback(slide, event);
 	}
 });
+
+Reveal.addEventListener('fragmentshown', async (event) => {
+	const slide = Reveal.getCurrentSlide();
+	await waitForTransition(slide);
+	for (let callback of transitionCallbacks) {
+		callback(slide, event);
+	}
+});
+
+Reveal.addEventListener('fragmenthidden', async (event) => {
+	const slide = Reveal.getCurrentSlide();
+	await waitForTransition(slide);
+	for (let callback of transitionCallbacks) {
+		callback(slide, event);
+	}
+});

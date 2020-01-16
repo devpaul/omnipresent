@@ -1,4 +1,5 @@
 import { createRequest, Action, createHandler, Response } from "./api";
+import { SlideIndex } from "./revealjs";
 
 export interface PointerPayload {
 	position: { x: number, y: number }
@@ -11,7 +12,7 @@ export interface ScreenPayload {
 export interface SlideMedia {
 	type: 'slide';
 	deck: string;
-	slide: { h: number; v: number; };
+	slide: SlideIndex;
 	src: string;
 }
 

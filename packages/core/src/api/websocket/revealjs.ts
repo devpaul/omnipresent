@@ -1,8 +1,13 @@
 import { Action, createHandler, createRequest } from './api';
 
-export interface SlideChangedPayload {
+export interface SlideIndex {
 	h: number;
 	v: number;
+	f?: number;
+}
+
+export interface SlideChangedPayload extends SlideIndex {
+	type: string;
 }
 
 export const nextSlide = createRequest(Action.NextSlide);

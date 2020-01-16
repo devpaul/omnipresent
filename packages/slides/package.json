@@ -35,6 +35,7 @@
     "webpack-cli": "^3.3.10"
   },
   "dependencies": {
+    "present-core": "file:../core/dist/cjs",
     "reveal.js": "^3.7.0"
   }
 }

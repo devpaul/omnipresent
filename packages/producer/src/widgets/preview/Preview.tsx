@@ -23,7 +23,7 @@ export default factory(function Preview({ middleware: { icache, store: { get, pa
 			<header>
 				<button disabled={!slide} onclick={() => { icache.set('type', 'slide')}}>Show Slide</button>
 				<button disabled={!media} onclick={() => { icache.set('type', 'screen')}}>View Screen</button>
-				<button disabled={!isSharing} onclick={() => { icache.set('type', 'image')}}>Take Snapshot</button>
+				<button disabled={!isSharing} onclick={() => { icache.set('type', 'image')}}>View Preview</button>
 				<button disabled={!isSharing} onclick={() => { icache.set('type', 'video')}}>Live Preview</button>
 				<button disabled={!isSharing || !type} onclick={() => { icache.set('type', undefined)}}>Stop</button>
 			</header>

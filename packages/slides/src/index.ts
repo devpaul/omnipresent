@@ -77,13 +77,19 @@ document.addEventListener('keyup', (event) => {
 
 getMenuCloseButton()?.addEventListener('click', closeMenu);
 
-addSlideTransitionListener(async (node: Element, event: SlideEvent) => {
-	console.log('transitioned');
+addSlideTransitionListener(async (node: Element, event: any) => {
 	if (node !== Reveal.getCurrentSlide()) {
 		console.warn('transitioned slide is not the current slide');
 		return;
 	}
-	slideChanged(Reveal.getIndices());
+	const type = event?.type ?? 'slideChanged';
+	const payload = {
+		type,
+		...Reveal.getIndices()
+	};
+	console.log(payload);
+
+	slideChanged(payload);
 });
 
 getConnectButton()?.addEventListener('click', async () => {

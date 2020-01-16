@@ -3,7 +3,7 @@ import Store from '@dojo/framework/stores/Store';
 import { handleAuthenticated, handleAuthenticateError, handleNotAuthenticated } from 'present-core/api/websocket/authenticate';
 import { handleRoleConnected, handleRoleLeft, handleStatus } from 'present-core/api/websocket/info';
 import { handleSlideChanged } from 'present-core/api/websocket/revealjs';
-import { handleShowMedia } from 'present-core/api/websocket/screen';
+import { handleShowMedia, SlideMedia } from 'present-core/api/websocket/screen';
 
 import { State } from '../interfaces';
 import { setAuthenticatedProcess, setUnauthenticatedProcess } from '../processes/authenticate.process';
@@ -16,8 +16,8 @@ let store: Store<State>
 export function initialize(s: Store<State>) {
 	store = s;
 
-	handleSlideChanged(async ({ h, v }) => {
-		await slideChangedProcess(store)({ h, v });
+	handleSlideChanged(async (slide) => {
+		await slideChangedProcess(store)(slide);
 		const isSharing = store.get(store.path('isSharing'));
 		const captureSlides = store.get(store.path('options', 'captureSlides'));
 		const syncToSlides = store.get(store.path('options', 'syncToSlides'));
@@ -26,12 +26,14 @@ export function initialize(s: Store<State>) {
 			await captureSlideProcess(store)({});
 		}
 		if (syncToSlides) {
-			await publishSlideToScreenProcess(store)({
+			const { type, action, ...index} = slide;
+			const payload: SlideMedia = {
 				type: 'slide',
 				deck: DECKNAME,
-				slide: { h, v },
-				src: getSlideUrl(DECKNAME, h, v, IMAGETYPE)
-			 });
+				slide: index,
+				src: getSlideUrl(slide, DECKNAME, IMAGETYPE)
+			 };
+			await publishSlideToScreenProcess(store)(payload);
 		}
 	});
 

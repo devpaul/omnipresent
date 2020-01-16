@@ -1,11 +1,11 @@
 import { createCommandFactory, createProcess } from '@dojo/framework/stores/process';
 import { replace } from '@dojo/framework/stores/state/operations';
 import { uploadSlide } from 'present-core/api/upload';
-import { nextSlide, previousSlide } from 'present-core/api/websocket/revealjs';
+import { nextSlide, previousSlide, SlideIndex } from 'present-core/api/websocket/revealjs';
 import { getScreenshot } from 'present-core/webrtc/screen';
 
 import { DECKNAME } from '../config';
-import { SlideIndex, State } from '../interfaces';
+import { State } from '../interfaces';
 
 const commandFactory = createCommandFactory<State>();
 
@@ -17,7 +17,7 @@ const previousSlideCommand = commandFactory(() => {
 	previousSlide({});
 });
 
-const slideChangedCommand = commandFactory<SlideIndex>(({ get, path, payload }) => {
+const slideChangedCommand = commandFactory<SlideIndex>(({ path, payload }) => {
 	return [
 		replace(path('slide'), payload)
 	];
@@ -49,10 +49,10 @@ const captureSlideCommand = commandFactory(async ({ get, path }) => {
 	const dataUrl = await getScreenshot();
 	await uploadSlide(dataUrl, {
 		deck: DECKNAME,
-		indexh: slide.h,
-		indexv: slide.v,
+		slide,
 		type: 'png'
 	});
+	console.log('uploaded', slide);
 });
 
 export const nextSlideProcess = createProcess('next-slide', [ nextSlideCommand ]);

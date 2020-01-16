@@ -39,8 +39,12 @@ export async function connect() {
 
 	handleAuthenticated(() => {
 		document.body.classList.add('authenticated');
-		const index = Reveal.getIndices();
-		slideChanged(index);
+		const payload = {
+			type: 'slideChanged',
+			... Reveal.getIndices()
+		};
+		console.log(payload);
+		slideChanged(payload);
 	});
 
 	handleAuthenticateError(() => {

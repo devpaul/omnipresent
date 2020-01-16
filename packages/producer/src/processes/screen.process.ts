@@ -24,8 +24,9 @@ const publishCurrentSlideToScreenCommand = commandFactory(({ get, path }) => {
 		type: 'slide',
 		deck: DECKNAME,
 		slide,
-		src: getSlideUrl(DECKNAME, slide.h, slide.v, IMAGETYPE)
-	})
+		src: getSlideUrl(slide, DECKNAME, IMAGETYPE)
+	});
+	console.log('showing slide', slide);
 })
 
 export const setScreenMediaProcess = createProcess('set-screen-media', [setScreenMediaCommand]);

@@ -1,4 +1,5 @@
 import { ImageMedia, VideoMedia, SlideMedia } from 'present-core/api/websocket/screen';
+import { SlideIndex } from 'present-core/api/websocket/revealjs';
 
 export interface State {
 	auth: Authentication;
@@ -23,11 +24,6 @@ export interface Options {
 export interface Authentication {
 	secret?: string;
 	isAuthenticated: boolean;
-}
-
-export interface SlideIndex {
-	h: number;
-	v: number;
 }
 
 export interface Requests {

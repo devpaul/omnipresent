@@ -10,6 +10,12 @@
 		margin: 0;
 	}
 
+	.bottom-tag {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+	}
+
 	.absolute-center {
 		position: absolute;
 		top: 0;
@@ -21,6 +27,24 @@
 		color: white;
 		align-content: center;
 		flex-direction: column;
+	}
+
+	.center-fixed {
+		position: fixed;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-content: center;
+		align-items: center;
+		width: 100vw;
+		height: 100vh;
+		top: 0;
+	}
+
+	.centered-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 	}
 
 	.two-column {
@@ -88,6 +112,8 @@
 
 			&.medium {
 				min-height: 20vh;
+				max-height: 70vh;
+				max-width: 100%
 			}
 
 			&.gh-mark {
