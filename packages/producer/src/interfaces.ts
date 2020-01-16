@@ -19,6 +19,7 @@ export interface Screen {
 export interface Options {
 	captureSlides: boolean;
 	syncToSlides: boolean;
+	autoAdvanceSlides: boolean;
 }
 
 export interface Authentication {

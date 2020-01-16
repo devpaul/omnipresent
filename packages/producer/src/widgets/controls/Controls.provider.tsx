@@ -8,6 +8,7 @@ import {
     setCaptureSlidesProcess,
     setSyncToSlidesProcess,
 	captureSlideProcess,
+	setAutoAdvanceProcess,
 } from '../../processes/slides.process';
 import { shareScreenProcess, stopSharingScreenProcess } from '../../processes/webrtc.process';
 import Controls, { ControlsProperties } from './Controls';
@@ -20,6 +21,7 @@ export default factory(function MenuProvider({ middleware: { store: { get, path,
 		isConnected: get(path('isConnected')),
 		isSharing: get(path('isSharing')),
 		isAuthenticated: get(path('auth', 'isAuthenticated')),
+		isAutoAdvance: get(path('options', 'autoAdvanceSlides')),
 		captureSlides: get(path('options', 'captureSlides')),
 		syncToSlides: get(path('options', 'syncToSlides')),
 		onCaptureSlide: async () => {
@@ -38,7 +40,8 @@ export default factory(function MenuProvider({ middleware: { store: { get, path,
 			if (value) {
 				executor(publishCurrentSlideToScreenProcess)({})
 			}
-		}
+		},
+		onAutomaticSlideChange: (value) => { executor(setAutoAdvanceProcess)({ value }) }
 	};
 
 	return (

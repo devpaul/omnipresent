@@ -55,9 +55,25 @@ const captureSlideCommand = commandFactory(async ({ get, path }) => {
 	console.log('uploaded', slide);
 });
 
+const setAutoAdvanceCommand = commandFactory(({ path, payload: {value} }) => {
+	return [
+		replace(path('options', 'autoAdvanceSlides'), value)
+	];
+});
+
+const autoAdvanceSlidesCommand = commandFactory(async ({ get, path }) => {
+	while (get(path('options', 'autoAdvanceSlides'))) {
+		nextSlide({});
+		await new Promise((resolve) => {
+			setTimeout(resolve, 5000);
+		});
+	}
+});
+
 export const nextSlideProcess = createProcess('next-slide', [ nextSlideCommand ]);
 export const previousSlideProcess = createProcess('previous-slide', [ previousSlideCommand ]);
 export const setCaptureSlidesProcess = createProcess('set-capture', [ setCaptureSlidesCommand ]);
 export const setSyncToSlidesProcess = createProcess('set-capture', [ setSyncToSlidesCommand ]);
 export const slideChangedProcess = createProcess('slide-changed', [ slideChangedCommand ]);
 export const captureSlideProcess = createProcess('capture-slide', [ captureSlideCommand ]);
+export const setAutoAdvanceProcess = createProcess('auto-advance', [ setAutoAdvanceCommand, autoAdvanceSlidesCommand ])

@@ -10,6 +10,7 @@ export interface ControlsProperties {
 	isConnected: boolean;
 	isAuthenticated: boolean;
 	isSharing: boolean;
+	isAutoAdvance: boolean;
 	captureSlides: boolean;
 	syncToSlides: boolean;
 
@@ -20,6 +21,7 @@ export interface ControlsProperties {
 	onNextSlide?: () => void;
 	onPreviousSlide?: () => void;
 	onCaptureSlide?: () => void;
+	onAutomaticSlideChange?: (value: boolean) => void;
 	onSetCaptureSlides?: (value: boolean) => void;
 	onSetSyncToSlides?: (value: boolean) => void;
 }
@@ -27,8 +29,8 @@ export interface ControlsProperties {
 const factory = create().properties<ControlsProperties>();
 
 export default factory(function Controls({ properties }){
-	const { isAuthenticated = false, isConnected = false, isSharing = false, onConnect, onDisconnect, onStopSharing, onShare, onNextSlide, onPreviousSlide, onSetCaptureSlides, captureSlides,
-		syncToSlides, onSetSyncToSlides, onCaptureSlide } = properties();
+	const { isAuthenticated = false, isConnected = false, isSharing = false, isAutoAdvance = false, onConnect, onDisconnect, onStopSharing, onShare, onNextSlide, onPreviousSlide, onSetCaptureSlides, captureSlides,
+		syncToSlides, onSetSyncToSlides, onCaptureSlide, onAutomaticSlideChange } = properties();
 
 	return (
 		<div classes={css.root}>
@@ -55,6 +57,9 @@ export default factory(function Controls({ properties }){
 			{ isConnected && <Card title="Slides">
 				<Control title="Next Slide" show={isConnected} onClick={ () => { onNextSlide?.() }} />
 				<Control title="Previous Slide" show={isConnected} onClick={ () => { onPreviousSlide?.() }} />
+				<div classes={css.indent}>
+					<Checkbox checked={isAutoAdvance} label="Auto Advance" mode={Mode.toggle} onChange={() => { onAutomaticSlideChange?.(!isAutoAdvance)}}/>
+				</div>
 			</Card> }
 		</div>
 	);
