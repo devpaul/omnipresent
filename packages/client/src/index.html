@@ -20,6 +20,8 @@
 			<a-entity wasd-controls camera look-controls>
 				<a-text id="txt" value="" position="0 0 -1" scale="0.4 0.4 0.4" align="center" color="#FFF"></a-text>
 			</a-entity>
+			<a-entity id="leftControl" laser-controls="hand: left"></a-entity>
+			<a-entity id="rightControl" laser-controls="hand: right"></a-entity>
 		</a-entity>
 
 		<a-plane id="screen" position="0 2 -2" geometry="width: 16; height: 9" material="src: #offair-img;npot: true"></a-plane>
@@ -29,8 +31,6 @@
 			<a-text id="presenttxt" value="" position="0 4 4" rotation="0 180 0" align="center" color="#FFF"></a-text>
 		</a-entity>
 
-		<a-entity id="leftControl" laser-controls="hand: left"></a-entity>
-		<a-entity id="rightControl" laser-controls="hand: right"></a-entity>
 		<a-entity id="left" gltf-model="https://cdn.aframe.io/controllers/oculus/oculus-touch-controller-left.gltf"></a-entity>
 		<a-entity id="right" gltf-model="https://cdn.aframe.io/controllers/oculus/oculus-touch-controller-right.gltf"></a-entity>
 	</a-scene>

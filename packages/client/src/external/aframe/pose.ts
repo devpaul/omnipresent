@@ -26,8 +26,8 @@ export function startSharingPose() {
 
 	isSharingPose = true;
 
-	const leftHand = document.getElementById('leftControl') as Entity;
-	const rightHand = document.getElementById('rightControl') as Entity;
+	const leftHand = document.getElementById('left') as Entity;
+	const rightHand = document.getElementById('right') as Entity;
 
 	function updatePose() {
 		if (!isSharingPose) {

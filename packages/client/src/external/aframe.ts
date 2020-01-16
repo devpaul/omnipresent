@@ -7,7 +7,7 @@ import { startSharingPose, stopSharingPose } from './aframe/pose';
 import { snackbar } from './aframe/snackbar';
 import { setPresenterSpace, setViewerSpace } from './aframe/space';
 
-export function initialize(store: Store<State>) {
+export async function initialize(store: Store<State>) {
 	const { get, path } = store;
 	// connect the store to aframe to sync state
 	store.onChange(path('space', 'sky'), () => {
@@ -48,24 +48,33 @@ export function initialize(store: Store<State>) {
 		}
 	});
 
-	// Attach event handlers to Aframe
-	initializeHandlers(store);
-
 	// Wait for Aframe to load before continuing
 	const scene = document.querySelector('a-scene');
 
-	return scene ? ((scene as any).hasLoaded ? Promise.resolve() : new Promise((resolve) => {
+	const loaded = scene ? ((scene as any).hasLoaded ? Promise.resolve() : new Promise((resolve) => {
 		scene.addEventListener('loaded', resolve);
 	})) : Promise.reject();
 
 	// TODO load the tracked initial values in to the store
+	await loaded;
+
+	// Attach event handlers to Aframe
+	initializeHandlers(store);
+
+	return loaded;
 }
 
 function initializeHandlers(store: Store<State>) {
-	// const leftHand = document.getElementById('leftControl');
+	const leftHand = document.getElementById('leftControl');
 	const rightHand = document.getElementById('rightControl');
 	const scene = document.querySelector('a-scene');
 
+	leftHand?.addEventListener('triggerdown', () => {
+		nextSlide({});
+	});
+	rightHand?.addEventListener('triggerdown', () => {
+		snackbar('button working');
+	});
 	rightHand?.addEventListener('abuttondown', () => {
 		nextSlide({});
 	});
