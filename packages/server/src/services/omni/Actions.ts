@@ -3,6 +3,7 @@ export const enum Action {
 	GetStatus = 'getStatus',
 	HideLaser = 'hideLaser',
 	NextSlide = 'nextSlide',
+	Notes = 'notes',
 	Pose = 'pose',
 	PreviousSlide = 'previousSlide',
 	RoleConnected = 'roleConnected',

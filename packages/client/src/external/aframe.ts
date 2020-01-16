@@ -112,3 +112,8 @@ function setScreenMedia(selector: string, media?: Media) {
 			screen.setAttribute('material', `src: url(${media.src})`);
 	}
 }
+
+export function setPresenterNotes(notes: string) {
+	const txtNode = document.querySelector('#presenttxt');
+	txtNode?.setAttribute('value', notes);
+}

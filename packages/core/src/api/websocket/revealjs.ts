@@ -10,6 +10,10 @@ export interface SlideChangedPayload extends SlideIndex {
 	type: string;
 }
 
+export interface SlideNotesPayload {
+	notes: string;
+}
+
 export const nextSlide = createRequest(Action.NextSlide);
 export const handleNextSlide = createHandler(Action.NextSlide);
 
@@ -18,3 +22,6 @@ export const handlePreviousSlide = createHandler(Action.PreviousSlide);
 
 export const slideChanged = createRequest<SlideChangedPayload>(Action.SlideChanged);
 export const handleSlideChanged = createHandler<SlideChangedPayload>(Action.SlideChanged);
+
+export const slideNotes = createRequest<SlideNotesPayload>(Action.Notes);
+export const handleSlideNotes = createHandler<SlideNotesPayload>(Action.Notes);

@@ -9,6 +9,8 @@ import { handleAuthenticateError, handleAuthenticated, handleNotAuthenticated } 
 import { setUnauthenticatedProcess, setAuthenticatedProcess } from '../processes/authenticate.process';
 import { snackbar } from './aframe/snackbar';
 import { changePose } from './aframe/pose';
+import { handleSlideNotes } from 'present-core/api/websocket/revealjs';
+import { setPresenterNotes } from './aframe';
 
 let store: Store<State>
 
@@ -39,5 +41,9 @@ export function initialize(s: Store<State>) {
 
 	handlePose((pose) => {
 		changePose(pose);
+	});
+
+	handleSlideNotes(({ notes }) => {
+		setPresenterNotes(notes);
 	});
 }

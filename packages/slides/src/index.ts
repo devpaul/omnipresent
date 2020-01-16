@@ -2,7 +2,7 @@
 import { getAuthButton, getAuthInput, getConnectButton, getMenuCloseButton } from './elements';
 import { closeMenu, connect, openMenu, sendAuthentication } from './menu';
 import { addSlideTransitionListener } from './slides';
-import { slideChanged } from 'present-core/api/websocket/revealjs';
+import { slideChanged, slideNotes } from 'present-core/api/websocket/revealjs';
 
 declare const hljs: typeof import('highlight.js');
 
@@ -82,6 +82,7 @@ addSlideTransitionListener(async (node: Element, event: any) => {
 		console.warn('transitioned slide is not the current slide');
 		return;
 	}
+	const notes = node.querySelector('.vr')?.textContent ?? '';
 	const type = event?.type ?? 'slideChanged';
 	const payload = {
 		type,
@@ -89,6 +90,7 @@ addSlideTransitionListener(async (node: Element, event: any) => {
 	};
 	console.log(payload);
 
+	slideNotes({ notes });
 	slideChanged(payload);
 });
 
