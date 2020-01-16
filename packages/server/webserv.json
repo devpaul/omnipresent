@@ -20,6 +20,7 @@
 				"/core/*": "./core/dist/esm",
 				"/client/*": "./client/output/dist",
 				"/slides/*": "./slides",
+				"/recordings/*": "./server/recordings",
 				"*": "./client/output/dist"
 			}
 		}

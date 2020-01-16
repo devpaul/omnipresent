@@ -5,7 +5,9 @@ import { cacheResponse } from './middleware/cacheResponse';
 import { echo, echoAll } from './middleware/echo';
 import { getStatus } from './middleware/getStatus';
 import { userLeft } from './omni.state';
+import { saveFactory } from './middleware/save';
 
+const save = saveFactory(`./recordings/${ Date.now() }.txt`);
 const authenticatedEcho = authenticatedWrapper(echo);
 const showMedia = authenticatedWrapper(cacheResponse(echoAll));
 const slideChanged = authenticatedWrapper(cacheResponse(echo));
@@ -16,11 +18,11 @@ export const omni = commandService({
 		{ action: Action.GetStatus, handler: getStatus },
 		{ action: Action.HideLaser, handler: authenticatedEcho },
 		{ action: Action.NextSlide, handler: authenticatedEcho },
-		{ action: Action.Pose, handler: authenticatedEcho },
+		{ action: Action.Pose, handler: save(authenticatedEcho) },
 		{ action: Action.PreviousSlide, handler: authenticatedEcho },
-		{ action: Action.ShowMedia, handler: showMedia },
+		{ action: Action.ShowMedia, handler: save(showMedia) },
 		{ action: Action.ShowLaser, handler: authenticatedEcho },
-		{ action: Action.SlideChanged, handler: slideChanged }
+		{ action: Action.SlideChanged, handler: save(slideChanged) }
 	],
 	defaultHandler: echo,
 	onDisconnect(con, {getAll}) {

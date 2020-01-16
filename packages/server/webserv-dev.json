@@ -25,6 +25,7 @@
 				"/client/*": "./client/output/dev",
 				"/slides/*": "./slides",
 				"/present/*": "./present/dist",
+				"/recordings/*": "./server/recordings",
 				"*": "./client/output/dev"
 			}
 		}
