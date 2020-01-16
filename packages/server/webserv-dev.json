@@ -22,8 +22,6 @@
 			"paths": {
 				"/producer/*": "./producer/output/dev",
 				"/present-core/*": "./core/dist/esm",
-				"/samples/*": "./server/samples",
-				"/files/*": "./server/uploads",
 				"/client/*": "./client/output/dev",
 				"/slides/*": "./slides",
 				"/present/*": "./present/dist",

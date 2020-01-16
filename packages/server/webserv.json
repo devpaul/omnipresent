@@ -18,7 +18,6 @@
 			"paths": {
 				"/producer/*": "./producer/output/dist",
 				"/core/*": "./core/dist/esm",
-				"/files/*": "./server/uploads",
 				"/client/*": "./client/output/dist",
 				"/slides/*": "./slides",
 				"*": "./client/output/dist"

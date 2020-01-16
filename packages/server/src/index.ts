@@ -2,13 +2,19 @@ import { bootConfig } from 'webserv/src/config';
 import { setLoader } from 'webserv/src/config/services';
 import { App } from 'webserv/src/core/app';
 import { omni } from './services/omni/omni.service';
+import { slideService } from './services/slides.service';
 
 const app = new App();
+addFilesService(app);
 process.env.NODE_ENV?.toUpperCase() === 'PROD' ? startProduction(app) : startDevelopment(app);
 
 setLoader('omnipresent', (app, config, basepath) => {
 	app.addService(omni)
 });
+
+function addFilesService(app: App) {
+	app.addService(slideService());
+}
 
 async function startProduction(app: App) {
 	console.log('Starting in PRODUCTION mode');
