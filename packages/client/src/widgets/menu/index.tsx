@@ -46,11 +46,6 @@ export default factory(function Menu({ middleware: { store: { get, path, executo
 				<Control show={isConnected} title="Disconnect" onClick={() => { disconnect({}) }}/>
 				<Control show={!isConnected} title="Connect" onClick={() => { connect({}) }}/>
 			</Card>
-			<Card title="External Links">
-				<div classes={css.indentedContainer}>
-					<a href="/slides/">View Slides</a>
-				</div>
-			</Card>
 			{ isAuthenticated && <Card title="Presenter">
 				<Control show={!isPresenter} title="Start Presenting" onClick={() => { presenting({ value: true }) }}/>
 				<Control show={!!isPresenter} title="Stop Presenting" onClick={() => { presenting({ value: false }) }}/>
@@ -58,6 +53,14 @@ export default factory(function Menu({ middleware: { store: { get, path, executo
 			{ !isAuthenticated && <Card title="Authentication">
 				<Authentication />
 			</Card> }
+			<Card title="External Links">
+				<div classes={css.indentedContainer}>
+					<div><a href="/slides/">View Slides</a></div>
+					<div><a href="https://github.com/devpaul/omnipresent">Github</a></div>
+					<div><a href="https://twitter.com/developerPaul">@developerPaul</a></div>
+					<div><a href="https://sitepen.com">SitePen</a></div>
+				</div>
+			</Card>
 		</SlidePane>
 	</virtual>
 });
