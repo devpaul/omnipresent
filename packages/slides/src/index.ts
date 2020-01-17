@@ -78,6 +78,9 @@ document.addEventListener('keyup', (event) => {
 getMenuCloseButton()?.addEventListener('click', closeMenu);
 
 addSlideTransitionListener(async (node: Element, event: any) => {
+	if(!document.body.classList.contains('authenticated')) {
+		return;
+	}
 	if (node !== Reveal.getCurrentSlide()) {
 		console.warn('transitioned slide is not the current slide');
 		return;
