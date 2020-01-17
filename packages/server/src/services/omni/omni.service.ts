@@ -9,8 +9,9 @@ import { saveFactory } from './middleware/save';
 
 const save = saveFactory(`./recordings/${ Date.now() }.txt`);
 const authenticatedEcho = authenticatedWrapper(echo);
-const showMedia = authenticatedWrapper(cacheResponse(echoAll));
-const slideChanged = authenticatedWrapper(cacheResponse(echo));
+const showMedia = authenticatedWrapper(save(cacheResponse(echoAll)));
+const slideChanged = authenticatedWrapper(save(cacheResponse(echo)));
+const poseHandler = authenticatedWrapper(save(echo));
 
 export const omni = commandService({
 	commands: [
@@ -18,11 +19,11 @@ export const omni = commandService({
 		{ action: Action.GetStatus, handler: getStatus },
 		{ action: Action.HideLaser, handler: authenticatedEcho },
 		{ action: Action.NextSlide, handler: authenticatedEcho },
-		{ action: Action.Pose, handler: save(authenticatedEcho) },
+		{ action: Action.Pose, handler: poseHandler },
 		{ action: Action.PreviousSlide, handler: authenticatedEcho },
-		{ action: Action.ShowMedia, handler: save(showMedia) },
+		{ action: Action.ShowMedia, handler: showMedia },
 		{ action: Action.ShowLaser, handler: authenticatedEcho },
-		{ action: Action.SlideChanged, handler: save(slideChanged) },
+		{ action: Action.SlideChanged, handler: slideChanged },
 		{ action: Action.Notes, handler: authenticatedWrapper(echoAuthenticated) }
 	],
 	defaultHandler: echo,
