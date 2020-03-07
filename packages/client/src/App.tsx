@@ -3,6 +3,7 @@ import { create, tsx } from '@dojo/framework/core/vdom';
 import dojo from '@dojo/themes/dojo';
 
 import Menu from './widgets/menu';
+import { WelcomeDialog } from './widgets/welcomeDialog/WelcomeDialog';
 
 const factory = create({ theme });
 
@@ -12,6 +13,7 @@ export default factory(function App({ middleware: { theme } }) {
 	}
 
 	return <virtual>
-		<Menu></Menu>
+		<WelcomeDialog />
+		<Menu />
 	</virtual>
 });

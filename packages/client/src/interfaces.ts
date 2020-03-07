@@ -11,12 +11,29 @@ export interface State {
 	isInVr: boolean;
 	/** If the menu should be displayed */
 	openMenu: boolean;
-
-	/** Describes the current presentation */
-	presentation: Presentation;
+	/** display WelcomeDialog */
+	showWelcome: boolean;
+	/** show the loading indicator */
+	isLoading: boolean;
 
 	/** Describes the presentation */
 	space: Space;
+
+	data: {
+		/** a list of available live or recorded presentations */
+		presentations: ListResponse<Presentation>;
+	}
+}
+
+export interface ListResponse<T, Q extends object = object> extends Response<T[], Q> {
+	length: number;
+}
+
+export interface Response<T, Q extends object = object> {
+	data: T,
+	isLoading: boolean;
+	error: any;
+	query?: Q;
 }
 
 export interface Authentication {
