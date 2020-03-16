@@ -13,8 +13,11 @@
 		<a-assets>
 			<img id="offair-img" src="./assets/off-air.jpg" />
 			<video id="vrscreen" playsinline></video>
+			<a-asset-item id="theater" src="./assets/alamo/alamo.gltf"></a-asset-item>
 		</a-assets>
 		<a-sky color="#191a47"></a-sky>
+
+		<a-entity gltf-model="#theater"></a-entity>
 
 		<a-entity id="rig" position="0 1.6 8">
 			<a-entity wasd-controls camera look-controls>
