@@ -1,0 +1,75 @@
+{
+	"id": "2020-01-17",
+	"title": "A Step Into VR",
+	"author": {
+		"name": "Paul Shannon",
+		"site": "https://devpaul.com"
+	},
+	"live": false,
+	"recordDate": "2020-01-17",
+	"description": "Presented at HalfStack Phoenix",
+	"links": [
+		{
+			"name": "Slides",
+			"url": "/slides"
+		},
+		{
+			"name": "Omnipresent Repo",
+			"url": "https://github.com/devpaul/omnipresent"
+		},
+		{
+			"name": "HalfStack Phoenix",
+			"url": "https://halfstackconf.com/phoenix/2020/"
+		}
+	],
+	"assets": {
+		"slides": [
+			"slides/slide-0-0.png",
+			"slides/slide-1-0.png",
+			"slides/slide-1.png",
+			"slides/slide-2-0.png",
+			"slides/slide-3-0.png",
+			"slides/slide-4-0.png",
+			"slides/slide-5-0-0.png",
+			"slides/slide-5-0-1.png",
+			"slides/slide-5-0-2.png",
+			"slides/slide-5-0-3.png",
+			"slides/slide-5-0-4.png",
+			"slides/slide-5-0.png",
+			"slides/slide-6-0-0.png",
+			"slides/slide-6-0-1.png",
+			"slides/slide-6-0.png",
+			"slides/slide-7-0-0.png",
+			"slides/slide-7-0-1.png",
+			"slides/slide-7-0.png",
+			"slides/slide-8-0-0.png",
+			"slides/slide-8-0-1.png",
+			"slides/slide-8-0.png",
+			"slides/slide-9-0-0.png",
+			"slides/slide-9-0-1.png",
+			"slides/slide-9-0.png",
+			"slides/slide-10-0.png",
+			"slides/slide-11-0.png",
+			"slides/slide-12-0.png",
+			"slides/slide-13-0.png",
+			"slides/slide-14-0.png",
+			"slides/slide-15-0.png",
+			"slides/slide-16-0.png",
+			"slides/slide-17-0.png",
+			"slides/slide-18-0.png",
+			"slides/slide-19-0.png",
+			"slides/slide-20-0.png",
+			"slides/slide-21-0.png",
+			"slides/slide-22-0.png",
+			"slides/slide-23-0.png",
+			"slides/slide-24-0.png",
+			"slides/slide-25-0.png",
+			"slides/slide-26-0.png",
+			"slides/slide-27-0.png",
+			"slides/slide-28-0.png"
+		],
+		"video": false,
+		"presenter": false,
+		"audio": false
+	}
+}
